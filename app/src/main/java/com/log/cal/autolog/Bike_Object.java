@@ -5,6 +5,7 @@ package com.log.cal.autolog;
  */
 public class Bike_Object
 {
+
     String bike_make;
     String bike_model;
     int bike_year;

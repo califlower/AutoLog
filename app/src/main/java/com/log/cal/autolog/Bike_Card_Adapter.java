@@ -27,6 +27,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
     @Override
     public void onBindViewHolder(Bike_Card_ViewHolder holder, int position)
     {
+
         Bike_Object b=bikes.get(position);
 
         holder.bike_make.setText(b.bike_make);

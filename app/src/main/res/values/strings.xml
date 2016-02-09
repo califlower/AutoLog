@@ -9,4 +9,5 @@
     <string name="vehicle_maint_hours">Hours</string>
     <string name="vehicle_maint_miles">Miles</string>
     <string name="save_button">Save</string>
+    <string name="title_activity_est">est</string>
 </resources>

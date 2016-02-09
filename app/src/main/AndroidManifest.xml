@@ -21,7 +21,7 @@
         <activity
             android:name=".add_bike"
             android:label="@string/title_activity_add_bike"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

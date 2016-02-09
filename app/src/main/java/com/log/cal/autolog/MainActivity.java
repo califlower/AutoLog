@@ -20,23 +20,44 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        /*
+            Holds all the objects
+         */
+        List<Bike_Object> bike_array_list=new ArrayList<>();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle inc=getIntent().getExtras();
+
+
+        if (inc!=null && inc.get("bike_year")!=null && inc.get("bike_make")!=null && inc.get("bike_model")!=null)
+        {
+            Bike_Object new_bike=new Bike_Object(inc.get("bike_make").toString(),inc.get("bike_model").toString(),Integer.parseInt(inc.get("bike_year").toString()));
+            bike_array_list.add(new_bike);
+        }
+
+
+
+        //bike_array_list.add(incoming_bike);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView bike_list=(RecyclerView) findViewById(R.id.bike_list);
-        bike_list.setHasFixedSize(true);
-        LinearLayoutManager manager=new LinearLayoutManager(this);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        bike_list.setLayoutManager(manager);
-        List<Bike_Object> bike_list_temp=new ArrayList<>();
+        /*Handles Recylerview mess */
+        /*----------------------------------*/
 
-        bike_list_temp.add(new Bike_Object("Suzuki","DRZ400SM",2006));
+            RecyclerView bike_list=(RecyclerView) findViewById(R.id.bike_list);
+            bike_list.setHasFixedSize(true);
+            LinearLayoutManager manager=new LinearLayoutManager(this);
+            manager.setOrientation(LinearLayoutManager.VERTICAL);
+            bike_list.setLayoutManager(manager);
 
-        Bike_Card_Adapter b=new Bike_Card_Adapter(bike_list_temp);
-        bike_list.setAdapter(b);
+            Bike_Card_Adapter b=new Bike_Card_Adapter(bike_array_list);
+            bike_list.setAdapter(b);
+
+
 
 
 
