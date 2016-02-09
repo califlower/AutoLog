@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity
             Holds all the objects
          */
         List<Bike_Object> bike_array_list=new ArrayList<>();
-
+        Bike_Object Test_Bike=new Bike_Object("Suzuki", "DRZ400SM", 2006, 20000);
+        bike_array_list.add(Test_Bike);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         if (inc!=null && inc.get("bike_year")!=null && inc.get("bike_make")!=null && inc.get("bike_model")!=null)
         {
-            Bike_Object new_bike=new Bike_Object(inc.get("bike_make").toString(),inc.get("bike_model").toString(),Integer.parseInt(inc.get("bike_year").toString()));
+            Bike_Object new_bike=new Bike_Object(inc.get("bike_make").toString(),inc.get("bike_model").toString(),Integer.parseInt(inc.get("bike_year").toString()),Integer.parseInt(inc.get("bike_mile").toString()));
             bike_array_list.add(new_bike);
         }
 

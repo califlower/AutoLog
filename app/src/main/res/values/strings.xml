@@ -9,5 +9,10 @@
     <string name="vehicle_maint_hours">Hours</string>
     <string name="vehicle_maint_miles">Miles</string>
     <string name="save_button">Save</string>
-    <string name="title_activity_est">est</string>
+    <string name="manufacturer"> Manufacturer</string>
+    <string name="model"> Model</string>
+    <string name="mile_header"> Odometer Reading</string>
+    <string name="year"> Year</string>
+    <string name="mileage"> Mileage</string>
+    <string name="empty_text">empty_string</string>
 </resources>

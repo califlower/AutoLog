@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bike_Card_ViewHolder>
 {
-    private List<Bike_Object> bikes;
+    private final List<Bike_Object> bikes;
 
     public Bike_Card_Adapter(List<Bike_Object> bikes)
     {
@@ -33,6 +33,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         holder.bike_make.setText(b.bike_make);
         holder.bike_model.setText(b.bike_model);
         holder.bike_year.setText(String.valueOf(b.bike_year));
+        holder.bike_mile.setText(String.valueOf(b.bike_mileage));
     }
 
     @Override
@@ -43,9 +44,10 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
 
     public class Bike_Card_ViewHolder extends RecyclerView.ViewHolder
     {
-        protected TextView bike_make;
-        protected TextView bike_model;
-        protected TextView bike_year;
+        final TextView bike_make;
+        final TextView bike_model;
+        final TextView bike_year;
+        final TextView bike_mile;
 
         public Bike_Card_ViewHolder(View v)
         {
@@ -54,6 +56,8 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             bike_make=(TextView) v.findViewById(R.id.card_make);
             bike_model=(TextView) v.findViewById(R.id.card_model);
             bike_year=(TextView) v.findViewById(R.id.card_year);
+            bike_mile=(TextView) v.findViewById(R.id.card_mileage);
+
         }
     }
 }
