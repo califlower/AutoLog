@@ -7,9 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
         bike_list.setLayoutManager(manager);
         List<Bike_Object> bike_list_temp=new ArrayList<>();
 
-        bike_list_temp.add(new Bike_Object("Poop","poopity",2007));
+        bike_list_temp.add(new Bike_Object("Suzuki","DRZ400SM",2006));
 
         Bike_Card_Adapter b=new Bike_Card_Adapter(bike_list_temp);
         bike_list.setAdapter(b);

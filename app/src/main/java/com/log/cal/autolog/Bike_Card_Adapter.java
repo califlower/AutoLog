@@ -8,9 +8,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by cal13 on 2/8/2016.
- */
 public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bike_Card_ViewHolder>
 {
     private List<Bike_Object> bikes;
@@ -34,7 +31,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
 
         holder.bike_make.setText(b.bike_make);
         holder.bike_model.setText(b.bike_model);
-        holder.bike_year.setText(b.bike_year);
+        holder.bike_year.setText(String.valueOf(b.bike_year));
     }
 
     @Override
