@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.log.cal.autolog.add_bike"
+    tools:showIn="@layout/activity_add_bike">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vehicle_make"
+        android:textSize="15sp"
+        android:id="@+id/make_heading"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/make_input"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="15sp"
+        android:layout_below="@+id/make_heading"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vehicle_model"
+        android:textSize="15sp"
+        android:id="@+id/model_header"
+        android:layout_below="@+id/make_input"
+        android:layout_alignStart="@+id/make_input"
+        android:layout_marginTop="12dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/model_input"
+        android:textSize="15sp"
+        android:layout_below="@+id/model_header"
+        android:layout_marginTop="12dp"
+        android:layout_alignStart="@+id/model_header"
+        android:layout_alignEnd="@id/make_input" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vehicle_year"
+        android:textSize="15sp"
+        android:id="@+id/year_header"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/model_input"
+        android:layout_alignStart="@+id/model_input" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/year_input"
+        android:textSize="15sp"
+        android:layout_alignEnd="@id/make_input"
+        android:layout_below="@+id/year_header"
+        android:layout_alignStart="@+id/year_header"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vehicle_maint_type"
+        android:textSize="15sp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@id/year_input"
+        android:id="@+id/hours_or_miles_header"
+        android:layout_alignStart="@+id/year_input"
+        android:layout_alignEnd="@id/year_input"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vehicle_maint_hours"
+        android:id="@+id/radio_hour"
+        android:layout_below="@+id/hours_or_miles_header"
+        android:layout_alignStart="@id/hours_or_miles_header"
+        android:layout_marginTop="20dp" />
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vehicle_maint_miles"
+        android:id="@+id/radio_miles"
+        android:layout_toEndOf="@id/radio_hour"
+        android:layout_marginStart="50dp"
+        android:layout_below="@+id/hours_or_miles_header"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+      />
+
+
+</RelativeLayout>
