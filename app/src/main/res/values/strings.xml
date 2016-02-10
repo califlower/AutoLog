@@ -14,5 +14,7 @@
     <string name="mile_header"> Odometer Reading</string>
     <string name="year"> Year</string>
     <string name="mileage"> Mileage</string>
+    <string name="vehicle_array_preferences">saved_vehicles</string>
+    <string name="vehicle_key">vehicke_key</string>
     <string name="empty_text">empty_string</string>
 </resources>
