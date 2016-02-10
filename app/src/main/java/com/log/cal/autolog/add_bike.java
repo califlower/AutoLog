@@ -133,7 +133,7 @@ public class add_bike extends AppCompatActivity
             }
             else if (Integer.parseInt(mile_input.getText().toString().trim())<0)
             {
-                Snackbar.make(findViewById(R.id.root_layout), "CANNOT HAVE AN HOUR OR ODEMETER READING UNDER 0", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.root_layout), "CANNOT HAVE AN HOUR OR ODOMETER READING UNDER 0", Snackbar.LENGTH_LONG).show();
                 return true;
             }
             else

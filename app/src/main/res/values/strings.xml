@@ -15,6 +15,14 @@
     <string name="year"> Year</string>
     <string name="mileage"> Mileage</string>
     <string name="vehicle_array_preferences">saved_vehicles</string>
-    <string name="vehicle_key">vehicke_key</string>
+    <string name="vehicle_key">vehicle_key</string>
     <string name="empty_text">empty_string</string>
+    <string name="next_maintenance_item">Next Maintenance Item</string>
+    <string name="maint_item">maint_item</string>
+    <string name="estimated_cost">Estimated Cost</string>
+    <string name="cost_item">cost_item</string>
+    <string name="miles">miles</string>
+    <string name="input_a_vehicle_manufacturer">Input a vehicle manufacturer</string>
+    <string name="input_a_vehicle_model">Input a vehicle model</string>
+    <string name="vehicle_image_description">Vehicle image description</string>
 </resources>
