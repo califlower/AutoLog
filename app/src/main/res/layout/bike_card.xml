@@ -24,7 +24,7 @@
             android:layout_marginTop="147dp"
             android:layout_marginEnd="20dp"
             app:backgroundTint="@color/colorPrimary"
-            android:src="@android:drawable/ic_menu_manage"
+            android:src="@drawable/wrench"
             android:tint="#FFFFFF"/>
 
         <!--
@@ -39,8 +39,6 @@
             android:layout_height="170dp"
             android:id="@+id/vehicle_image"
             android:background="#cddc39"
-            android:scaleType="fitXY"
-            android:src="@drawable/test_image_smaller"
             android:contentDescription="@string/vehicle_image_description"
             android:layout_alignParentStart="true" />
 
@@ -59,7 +57,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:id="@+id/card_year"
                 android:layout_marginTop="6dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="20dp"
                 android:text="@string/year"
                 android:textColor="#ffffff"
                 android:textSize="@dimen/text_size"
@@ -179,7 +177,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/relativeLayout"
                 android:layout_marginBottom="15dp"
-                android:layout_alignStart="@+id/est_cost_item" />
+                android:layout_marginStart="45dp"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -191,8 +190,8 @@
                 android:id="@+id/remove_bike"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/relativeLayout"
-                android:layout_toEndOf="@+id/update_miles"
-                android:layout_marginStart="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="55dp"
                 android:layout_marginBottom="15dp"/>
 
         </RelativeLayout>

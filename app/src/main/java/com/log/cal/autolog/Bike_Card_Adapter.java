@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -58,6 +60,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         final TextView bike_mile;
         final TextView update_miles;
         final TextView remove_bike;
+        final ImageView bike_image;
 
         public Bike_Card_ViewHolder(View v)
         {
@@ -69,6 +72,11 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             bike_mile=(TextView) v.findViewById(R.id.card_mileage);
             update_miles=(TextView) v.findViewById(R.id.update_miles);
             remove_bike=(TextView) v.findViewById(R.id.remove_bike);
+            bike_image=(ImageView)v.findViewById(R.id.vehicle_image);
+
+
+            Glide.with(v.getContext()).load(R.drawable.test_image_smaller).centerCrop().into(bike_image);
+
 
             remove_bike.setOnClickListener(new View.OnClickListener()
             {
@@ -112,9 +120,6 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
                          * applies changes
                          */
                     }
-
-
-
 
                 }
             });
