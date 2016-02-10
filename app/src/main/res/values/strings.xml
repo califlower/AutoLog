@@ -22,7 +22,5 @@
     <string name="estimated_cost">Estimated Cost</string>
     <string name="cost_item">cost_item</string>
     <string name="miles">miles</string>
-    <string name="input_a_vehicle_manufacturer">Input a vehicle manufacturer</string>
-    <string name="input_a_vehicle_model">Input a vehicle model</string>
     <string name="vehicle_image_description">Vehicle image description</string>
 </resources>

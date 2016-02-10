@@ -26,7 +26,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:textSize="15sp"
-        android:hint="@string/input_a_vehicle_manufacturer"
         android:layout_below="@+id/make_heading"
         android:layout_marginTop="12dp" />
 
@@ -44,7 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/model_input"
-        android:hint="@string/input_a_vehicle_model"
         android:textSize="15sp"
         android:layout_below="@+id/model_header"
         android:layout_marginTop="12dp"
