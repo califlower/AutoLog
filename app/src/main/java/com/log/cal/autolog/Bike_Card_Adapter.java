@@ -77,7 +77,6 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
 
             Glide.with(v.getContext()).load(R.drawable.test_image_smaller).centerCrop().into(bike_image);
 
-
             remove_bike.setOnClickListener(new View.OnClickListener()
             {
                 @Override

@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final FloatingActionButton add_fab=(FloatingActionButton) findViewById(R.id.fab);
 
         /********************
          * handles the saving part
@@ -101,12 +104,27 @@ public class MainActivity extends AppCompatActivity
             Bike_Card_Adapter b=new Bike_Card_Adapter(bike_array_list);
             bike_list.setAdapter(b);
 
+            bike_list.addOnScrollListener(new Add_Fab_Behavior()
+            {
+                @Override
+                public void show()
+                {
+                    add_fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+                }
+
+                @Override
+                public void hide()
+                {
+                    add_fab.animate().translationY(add_fab.getHeight() + 3*16).setInterpolator(new AccelerateInterpolator(2)).start();
+                }
+            });
 
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener()
+
+
+        add_fab.setOnClickListener(new View.OnClickListener()
         {
 
             public void onClick(View view)
