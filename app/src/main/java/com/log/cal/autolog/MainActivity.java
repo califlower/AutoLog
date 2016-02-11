@@ -72,7 +72,14 @@ public class MainActivity extends AppCompatActivity
 
             Gson gson=new Gson();
 
-            Bike_Object new_bike=new Bike_Object(inc.get("bike_make").toString(),inc.get("bike_model").toString(),Integer.parseInt(inc.get("bike_year").toString()),Integer.parseInt(inc.get("bike_mile").toString()));
+            Bike_Object new_bike=new Bike_Object
+                    (
+                        inc.get("bike_make").toString(),
+                        inc.get("bike_model").toString(),
+                        Integer.parseInt(inc.get("bike_year").toString()),
+                        Integer.parseInt(inc.get("bike_mile").toString()),
+                        inc.get("maint_type").toString()
+                    );
             bike_array_list.add(new_bike);
 
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -115,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void hide()
                 {
-                    add_fab.animate().translationY(add_fab.getHeight() + 3*16).setInterpolator(new AccelerateInterpolator(2)).start();
+                    add_fab.animate().translationY(add_fab.getHeight() + 48).setInterpolator(new AccelerateInterpolator(2)).start();
                 }
             });
 

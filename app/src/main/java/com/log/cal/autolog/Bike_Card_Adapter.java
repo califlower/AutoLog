@@ -43,6 +43,8 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         holder.bike_model.setText(b.bike_model);
         holder.bike_year.setText(String.valueOf(b.bike_year));
         holder.bike_mile.setText(String.valueOf(b.bike_mileage));
+        holder.maint_type.setText(b.maint_type);
+
 
     }
 
@@ -61,6 +63,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         final TextView update_miles;
         final TextView remove_bike;
         final ImageView bike_image;
+        final TextView maint_type;
 
         public Bike_Card_ViewHolder(View v)
         {
@@ -73,8 +76,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             update_miles=(TextView) v.findViewById(R.id.update_miles);
             remove_bike=(TextView) v.findViewById(R.id.remove_bike);
             bike_image=(ImageView)v.findViewById(R.id.vehicle_image);
-
-
+            maint_type=(TextView) v.findViewById(R.id.maint_type_text);
             Glide.with(v.getContext()).load(R.drawable.test_image_smaller).centerCrop().into(bike_image);
 
             remove_bike.setOnClickListener(new View.OnClickListener()
@@ -111,9 +113,11 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
                         SharedPreferences.Editor editor = sharedPref.edit();
                         String insert_preference=gson.toJson(temp_list);
 
+
                         editor.putString(context.getString(R.string.vehicle_key),insert_preference);
 
                         editor.apply();
+
 
                         /****
                          * applies changes

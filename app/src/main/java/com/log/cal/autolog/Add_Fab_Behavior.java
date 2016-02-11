@@ -7,9 +7,10 @@ import android.support.v7.widget.RecyclerView;
  */
 public abstract class Add_Fab_Behavior extends RecyclerView.OnScrollListener
 {
-    static final float MINIMUM = 10;
+    static final float MINIMUM = 20;
     int scrollDist = 0;
     boolean isVisible = true;
+
 
 
     public void onScrolled(RecyclerView recyclerView, int dx, int dy)
@@ -21,7 +22,7 @@ public abstract class Add_Fab_Behavior extends RecyclerView.OnScrollListener
             scrollDist = 0;
             isVisible = false;
         }
-        else if (!isVisible && scrollDist < -MINIMUM) {
+        else if (!isVisible && scrollDist < -MINIMUM)  {
             show();
             scrollDist = 0;
             isVisible = true;
@@ -33,6 +34,20 @@ public abstract class Add_Fab_Behavior extends RecyclerView.OnScrollListener
 
     }
 
+
+    public void  onScrollStateChanged (RecyclerView recyclerView, int newState)
+    {
+        super.onScrollStateChanged(recyclerView,newState);
+
+        int itemCount = recyclerView.getLayoutManager().getItemCount();
+        if (itemCount<=1)
+        {
+            show();
+            scrollDist = 0;
+            isVisible = true;
+        }
+
+    }
     public abstract void show();
     public abstract void hide();
 

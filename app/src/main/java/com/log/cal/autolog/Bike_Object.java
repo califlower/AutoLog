@@ -8,6 +8,7 @@ class Bike_Object
     final String bike_model;
     final int bike_year;
     final int bike_mileage;
+    final String maint_type;
 
 // --Commented out by Inspection START (2/9/2016 1:24 AM):
 //    public Bike_Object()
@@ -18,12 +19,13 @@ class Bike_Object
 //
 //    }
 // --Commented out by Inspection STOP (2/9/2016 1:24 AM)
-    public Bike_Object(String bike_make,String bike_model, int bike_year, int bike_mileage)
+    public Bike_Object(String bike_make,String bike_model, int bike_year, int bike_mileage, String maint_type)
     {
         this.bike_make=bike_make;
         this.bike_model=bike_model;
         this.bike_year=bike_year;
         this.bike_mileage=bike_mileage;
+        this.maint_type=maint_type;
     }
 
     public String toString()

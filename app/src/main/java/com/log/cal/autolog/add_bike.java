@@ -106,6 +106,19 @@ public class add_bike extends AppCompatActivity
             EditText year_input= (EditText) findViewById(R.id.year_input);
             EditText mile_input= (EditText) findViewById(R.id.mile_input);
 
+            RadioButton hours= (RadioButton) findViewById(R.id.radio_hour);
+            RadioButton miles= (RadioButton) findViewById(R.id.radio_miles);
+            String maint_type;
+
+            if (hours.isChecked()==false)
+            {
+                maint_type="Miles";
+            }
+            else
+            {
+                maint_type="Hours";
+            }
+
             if (make_input.getText().toString().trim().length()==0)
             {
                 Snackbar.make(findViewById(R.id.root_layout), "MISSING AN INPUT", Snackbar.LENGTH_LONG).show();
@@ -143,6 +156,7 @@ public class add_bike extends AppCompatActivity
                 back_to_main.putExtra("bike_model",model_input.getText().toString().trim().toUpperCase());
                 back_to_main.putExtra("bike_year",year_input.getText().toString().trim());
                 back_to_main.putExtra("bike_mile", mile_input.getText().toString().trim());
+                back_to_main.putExtra("maint_type", maint_type);
                 startActivity(back_to_main);
                 overridePendingTransition(R.anim.appear,R.anim.close_to_point );
                 return true;
