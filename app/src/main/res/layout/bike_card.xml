@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/card_mileage"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
 
             android:fontFamily="sans-serif-thin"
             android:id="@+id/next_maint_header"
@@ -187,6 +187,37 @@
 
             android:textColor="#000000"
             />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/divider"
+
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+
+
+            android:id="@+id/maintenance_list_button"
+            android:background="#00ffffff"
+            android:src="@drawable/file_document_box"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/maintenance_list_button"
+            android:layout_below="@id/divider"
+
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="32dp"
+
+
+            android:id="@+id/bike_settings"
+            android:background="#00ffffff"
+            android:src="@drawable/wrench"
+            />
+
 
     </RelativeLayout>
 
