@@ -3,12 +3,14 @@ package com.log.cal.autolog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -126,6 +128,69 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
 
                 }
             });
+
+            update_miles.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+
+                    final Context context=v.getContext();
+
+                    new MaterialDialog.Builder(v.getContext())
+                            .title("Update Mileage")
+                            .inputType(InputType.TYPE_CLASS_NUMBER)
+                            .inputRange(1,-1)
+                            .negativeText("Cancel")
+                            .input("E.g. 150000", "", new MaterialDialog.InputCallback()
+                            {
+
+                                public void onInput(MaterialDialog dialog, CharSequence input)
+                                {
+                                    final SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
+                                    String vehicle_gson_array=sharedPref.getString(context.getString(R.string.vehicle_key),"empty_key");
+
+                                    /******
+                                     * Checks if the saved array is empty or not
+                                     */
+
+                                    if (vehicle_gson_array.compareTo("empty_key")!=0)
+                                    {
+                                        Gson gson=new Gson();
+                                        Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
+                                        ArrayList<Bike_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
+
+                                        /*******
+                                         * Removes item from recyclerview and sharedpreferences
+                                         */
+
+
+                                        Bike_Object b=bikes.get(getAdapterPosition());
+                                        b.bike_mileage=Integer.parseInt(input.toString());
+
+                                        temp_list.set(getAdapterPosition(),b);
+                                        bikes.set(getAdapterPosition(),b);
+
+                                        notifyItemRemoved(getAdapterPosition());
+
+                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                        String insert_preference=gson.toJson(temp_list);
+
+
+                                        editor.putString(context.getString(R.string.vehicle_key),insert_preference);
+
+                                        editor.apply();
+
+
+                                        /****
+                                         * applies changes
+                                         */
+                                    }
+                                }
+                            }).show();
+                }
+            });
+
 
 
         }

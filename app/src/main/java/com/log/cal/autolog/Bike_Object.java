@@ -4,11 +4,11 @@ package com.log.cal.autolog;
 class Bike_Object
 {
 
-    final String bike_make;
-    final String bike_model;
-    final int bike_year;
-    final int bike_mileage;
-    final String maint_type;
+    String bike_make;
+    String bike_model;
+    int bike_year;
+    int bike_mileage;
+    String maint_type;
 
 // --Commented out by Inspection START (2/9/2016 1:24 AM):
 //    public Bike_Object()
