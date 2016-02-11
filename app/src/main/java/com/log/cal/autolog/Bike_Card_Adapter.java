@@ -47,6 +47,15 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         holder.bike_mile.setText(String.valueOf(b.bike_mileage));
         holder.maint_type.setText(b.maint_type);
 
+        if (b.maint_type.compareToIgnoreCase("Miles")==0)
+        {
+            holder.update_miles.setText("Update Miles");
+        }
+        else
+        {
+            holder.update_miles.setText("Update Hours");
+        }
+
 
     }
 
@@ -80,6 +89,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             bike_image=(ImageView)v.findViewById(R.id.vehicle_image);
             maint_type=(TextView) v.findViewById(R.id.maint_type_text);
             Glide.with(v.getContext()).load(R.drawable.test_image_smaller).centerCrop().into(bike_image);
+
 
             remove_bike.setOnClickListener(new View.OnClickListener()
             {
