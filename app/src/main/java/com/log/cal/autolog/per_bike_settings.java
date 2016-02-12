@@ -33,41 +33,53 @@ public class per_bike_settings extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bike);
+        
+        /************
+         * Gets the ids of the various objects so that I can talk to them
+        */
+        
         Toolbar toolbar = (Toolbar) findViewById(R.id.add_bike_toolbar);
         EditText make_input= (EditText) findViewById(R.id.make_input);
         EditText model_input= (EditText) findViewById(R.id.model_input);
         EditText year_input= (EditText) findViewById(R.id.year_input);
         EditText mile_input= (EditText) findViewById(R.id.mile_input);
+        
         toolbar.setTitle("Edit");
         setSupportActionBar(toolbar);
 
 
-
+        /****
+         * Get which item to popuate all the vehicle info with
+        */
+        
         Bundle inc=getIntent().getExtras();
-
         int location=(int) inc.get("location");
-
 
         List<Bike_Object> bike_array_list;
         /********************
          * handles the saving part
          * retrieves vehicles
          */
+         
         Context context=per_bike_settings.this;
         final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
         String vehicle_gson_array=sharedPref.getString(getString(R.string.vehicle_key),"empty_key");
 
-        /******
-         * Checks if the saved array is empty or not
-         */
-
+        /****
+         * Pulls the full array from file storage
+        ****/
+        
         Gson gson=new Gson();
         Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
         ArrayList<Bike_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
         bike_array_list=temp_list;
 
         Bike_Object b=bike_array_list.get(location);
-
+        
+        /****
+         * Sets all the inputs to the info of the vehicle that is being edited
+        ***/
+        
         make_input.setText(b.bike_make);
         model_input.setText(b.bike_model);
         year_input.setText(Integer.toString(b.bike_year));
@@ -75,11 +87,10 @@ public class per_bike_settings extends AppCompatActivity
 
 
 
-
-
-
-
-
+        /***
+         * Declares the radio buttons
+         * Declared final so that it can be accseed from an inner class
+         ****/
         final RadioButton hours=(RadioButton) findViewById(R.id.radio_hour);
         final RadioButton miles=(RadioButton) findViewById(R.id.radio_miles);
 
@@ -103,8 +114,9 @@ public class per_bike_settings extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                miles.setChecked(false);
                 TextView mile_header= (TextView) findViewById(R.id.mile_header);
+                
+                miles.setChecked(false);
                 mile_header.setText("Odometer Hour Reading");
             }
         });
@@ -114,8 +126,9 @@ public class per_bike_settings extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                hours.setChecked(false);
                 TextView mile_header= (TextView) findViewById(R.id.mile_header);
+                
+                hours.setChecked(false);
                 mile_header.setText("Odometer Reading");
             }
         });
@@ -131,9 +144,6 @@ public class per_bike_settings extends AppCompatActivity
             Intent back=new Intent(this,MainActivity.class);
             startActivity(back);
         }
-
-
-
 
     }
 
@@ -219,6 +229,7 @@ public class per_bike_settings extends AppCompatActivity
             {
                 Intent back_to_main=new Intent(per_bike_settings.this,MainActivity.class);
                 Bundle inc=getIntent().getExtras();
+                
                 back_to_main.putExtra("bike_make",make_input.getText().toString().trim());
                 back_to_main.putExtra("bike_model",model_input.getText().toString().trim().toUpperCase());
                 back_to_main.putExtra("bike_year",year_input.getText().toString().trim());
