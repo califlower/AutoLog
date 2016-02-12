@@ -28,24 +28,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        /*
-            Holds all the objects
-         */
-        List<Bike_Object> bike_array_list;
-        //Bike_Object Test_Bike=new Bike_Object("Suzuki", "DRZ400SM", 2006, 20000);
-        //bike_array_list.add(Test_Bike);
-
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         final FloatingActionButton add_fab=(FloatingActionButton) findViewById(R.id.fab);
+        List<Bike_Object> bike_array_list;
+        RecyclerView bike_list=(RecyclerView) findViewById(R.id.bike_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        /********************
-         * handles the saving part
-         * retrieves vehicles
-         */
-
+        
         Intent i=this.getIntent();
 
+        /******
+         * Determines who started this activity
+         * If depending on who started the activity, different things can happen! WOO
+         * Mostly just determines what happens to the vehicle list
+        *****/
+        
         if (i!=null && i.getExtras()!=null)
         {
             if (i.getExtras().get("id").toString().compareToIgnoreCase("settings_activity")==0)
@@ -63,23 +64,23 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        //bike_array_list.add(incoming_bike);
+        /*****
+         * Handles the recyclerview disaster
+         * Like, why is there so much code to implement a funky listview?
+         * Actually its not that bad, once it works it's pretty dope
+         **********/
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        /*Handles Recylerview mess */
-        /*----------------------------------*/
-
-        RecyclerView bike_list=(RecyclerView) findViewById(R.id.bike_list);
         bike_list.setHasFixedSize(true);
         LinearLayoutManager manager=new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         bike_list.setLayoutManager(manager);
-
         Bike_Card_Adapter b=new Bike_Card_Adapter(bike_array_list);
         bike_list.setAdapter(b);
 
+        /****
+         * Sets a listener that hides the fab when scrolling
+        *****/
+        
         bike_list.addOnScrollListener(new Add_Fab_Behavior()
         {
             @Override
@@ -94,10 +95,6 @@ public class MainActivity extends AppCompatActivity
                 add_fab.animate().translationY(add_fab.getHeight() + 48).setInterpolator(new AccelerateInterpolator(2)).start();
             }
         });
-
-
-
-
 
 
         add_fab.setOnClickListener(new View.OnClickListener()
