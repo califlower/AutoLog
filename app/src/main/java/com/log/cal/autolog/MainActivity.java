@@ -43,55 +43,24 @@ public class MainActivity extends AppCompatActivity
          * handles the saving part
          * retrieves vehicles
          */
-        Context context=MainActivity.this;
-        final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
-        String vehicle_gson_array=sharedPref.getString(getString(R.string.vehicle_key),"empty_key");
 
-        /******
-         * Checks if the saved array is empty or not
-         */
+        Intent i=this.getIntent();
 
-        if (vehicle_gson_array.compareTo("empty_key")==0)
+        if (i!=null && i.getExtras()!=null)
         {
-            bike_array_list=new ArrayList<>();
+            if (i.getExtras().get("id").toString().compareToIgnoreCase("settings_activity")==0)
+            {
+                bike_array_list=initializeEditList();
+            }
+            else
+            {
+                bike_array_list=initializeEditList();
+            }
         }
         else
         {
-            Gson gson=new Gson();
-            Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
-            ArrayList<Bike_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
-            bike_array_list=temp_list;
+            bike_array_list=initializeList();
         }
-
-
-        Bundle inc=getIntent().getExtras();
-
-
-        if (inc!=null && inc.get("bike_year")!=null && inc.get("bike_make")!=null && inc.get("bike_model")!=null)
-        {
-
-            Gson gson=new Gson();
-
-            Bike_Object new_bike=new Bike_Object
-                    (
-                        inc.get("bike_make").toString(),
-                        inc.get("bike_model").toString(),
-                        Integer.parseInt(inc.get("bike_year").toString()),
-                        Integer.parseInt(inc.get("bike_mile").toString()),
-                        inc.get("maint_type").toString()
-                    );
-            bike_array_list.add(new_bike);
-
-            SharedPreferences.Editor editor = sharedPref.edit();
-
-            String insert_preference=gson.toJson(bike_array_list);
-
-            editor.putString(getString(R.string.vehicle_key),insert_preference);
-
-            editor.apply();
-
-        }
-
 
 
         //bike_array_list.add(incoming_bike);
@@ -102,29 +71,29 @@ public class MainActivity extends AppCompatActivity
         /*Handles Recylerview mess */
         /*----------------------------------*/
 
-            RecyclerView bike_list=(RecyclerView) findViewById(R.id.bike_list);
-            bike_list.setHasFixedSize(true);
-            LinearLayoutManager manager=new LinearLayoutManager(this);
-            manager.setOrientation(LinearLayoutManager.VERTICAL);
-            bike_list.setLayoutManager(manager);
+        RecyclerView bike_list=(RecyclerView) findViewById(R.id.bike_list);
+        bike_list.setHasFixedSize(true);
+        LinearLayoutManager manager=new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        bike_list.setLayoutManager(manager);
 
-            Bike_Card_Adapter b=new Bike_Card_Adapter(bike_array_list);
-            bike_list.setAdapter(b);
+        Bike_Card_Adapter b=new Bike_Card_Adapter(bike_array_list);
+        bike_list.setAdapter(b);
 
-            bike_list.addOnScrollListener(new Add_Fab_Behavior()
+        bike_list.addOnScrollListener(new Add_Fab_Behavior()
+        {
+            @Override
+            public void show()
             {
-                @Override
-                public void show()
-                {
-                    add_fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-                }
+                add_fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+            }
 
-                @Override
-                public void hide()
-                {
-                    add_fab.animate().translationY(add_fab.getHeight() + 48).setInterpolator(new AccelerateInterpolator(2)).start();
-                }
-            });
+            @Override
+            public void hide()
+            {
+                add_fab.animate().translationY(add_fab.getHeight() + 48).setInterpolator(new AccelerateInterpolator(2)).start();
+            }
+        });
 
 
 
@@ -166,6 +135,127 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<Bike_Object> initializeList()
+    {
+        List<Bike_Object> bike_array_list;
+        /********************
+         * handles the saving part
+         * retrieves vehicles
+         */
+        Context context=MainActivity.this;
+        final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
+        String vehicle_gson_array=sharedPref.getString(getString(R.string.vehicle_key),"empty_key");
+
+        /******
+         * Checks if the saved array is empty or not
+         */
+
+        if (vehicle_gson_array.compareTo("empty_key")==0)
+        {
+            bike_array_list=new ArrayList<>();
+        }
+        else
+        {
+            Gson gson=new Gson();
+            Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
+            ArrayList<Bike_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
+            bike_array_list=temp_list;
+        }
+
+
+        Bundle inc=getIntent().getExtras();
+
+
+        if (inc!=null && inc.get("bike_year")!=null && inc.get("bike_make")!=null && inc.get("bike_model")!=null)
+        {
+
+            Gson gson=new Gson();
+
+            Bike_Object new_bike=new Bike_Object
+                    (
+                            inc.get("bike_make").toString(),
+                            inc.get("bike_model").toString(),
+                            Integer.parseInt(inc.get("bike_year").toString()),
+                            Integer.parseInt(inc.get("bike_mile").toString()),
+                            inc.get("maint_type").toString()
+                    );
+            bike_array_list.add(new_bike);
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            String insert_preference=gson.toJson(bike_array_list);
+
+            editor.putString(getString(R.string.vehicle_key),insert_preference);
+
+            editor.apply();
+
+
+
+        }
+        return bike_array_list;
+    }
+
+    private List<Bike_Object> initializeEditList()
+    {
+        List<Bike_Object> bike_array_list;
+        /********************
+         * handles the saving part
+         * retrieves vehicles
+         */
+        Context context=MainActivity.this;
+        final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
+        String vehicle_gson_array=sharedPref.getString(getString(R.string.vehicle_key),"empty_key");
+
+        /******
+         * Checks if the saved array is empty or not
+         */
+
+        if (vehicle_gson_array.compareTo("empty_key")==0)
+        {
+            bike_array_list=new ArrayList<>();
+        }
+        else
+        {
+            Gson gson=new Gson();
+            Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
+            ArrayList<Bike_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
+            bike_array_list=temp_list;
+        }
+
+
+        Bundle inc=getIntent().getExtras();
+
+
+        if (inc!=null && inc.get("bike_year")!=null && inc.get("bike_make")!=null && inc.get("bike_model")!=null && inc.get("location")!=null)
+        {
+
+            Gson gson=new Gson();
+
+            Bike_Object new_bike=new Bike_Object
+                    (
+                            inc.get("bike_make").toString(),
+                            inc.get("bike_model").toString(),
+                            Integer.parseInt(inc.get("bike_year").toString()),
+                            Integer.parseInt(inc.get("bike_mile").toString()),
+                            inc.get("maint_type").toString()
+                    );
+            bike_array_list.set((int) inc.get("location"),new_bike);
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            String insert_preference=gson.toJson(bike_array_list);
+
+            editor.putString(getString(R.string.vehicle_key),insert_preference);
+
+            editor.apply();
+
+
+
+        }
+        return bike_array_list;
+
     }
 
     /***

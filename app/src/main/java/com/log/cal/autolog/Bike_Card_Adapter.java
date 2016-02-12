@@ -1,12 +1,14 @@
 package com.log.cal.autolog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -75,6 +77,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         final TextView remove_bike;
         final ImageView bike_image;
         final TextView maint_type;
+        final ImageButton settings;
 
         public Bike_Card_ViewHolder(View v)
         {
@@ -88,9 +91,17 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             remove_bike=(TextView) v.findViewById(R.id.remove_bike);
             bike_image=(ImageView)v.findViewById(R.id.vehicle_image);
             maint_type=(TextView) v.findViewById(R.id.maint_type_text);
+            settings=(ImageButton) v.findViewById(R.id.bike_settings);
             Glide.with(v.getContext()).load(R.drawable.test_image_smaller).centerCrop().into(bike_image);
 
-
+            settings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent bike_settings=new Intent(v.getContext(),per_bike_settings.class);
+                    bike_settings.putExtra("location",getAdapterPosition());
+                    v.getContext().startActivity(bike_settings);
+                }
+            });
             remove_bike.setOnClickListener(new View.OnClickListener()
             {
                 @Override
