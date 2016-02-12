@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
          * Mostly just determines what happens to the vehicle list
         *****/
         
-        if (i!=null && i.getExtras()!=null)
+        if (i!=null && i.getExtras()!=null && i.getExtras().get("id")!=null)
         {
             if (i.getExtras().get("id").toString().compareToIgnoreCase("settings_activity")==0)
             {

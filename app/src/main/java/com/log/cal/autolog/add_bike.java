@@ -156,6 +156,11 @@ public class add_bike extends AppCompatActivity
                 Snackbar.make(findViewById(R.id.root_layout), "CANNOT HAVE AN HOUR OR ODOMETER READING UNDER 0", Snackbar.LENGTH_LONG).show();
                 return true;
             }
+            else if (PATH==null ||PATH.size()==0)
+            {
+                Snackbar.make(findViewById(R.id.root_layout), "PLEASE ADD A PICTURE", Snackbar.LENGTH_LONG).show();
+                return true;
+            }
             else
             {
                 Intent back_to_main=new Intent(add_bike.this,MainActivity.class);
