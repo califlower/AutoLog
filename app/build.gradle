@@ -28,5 +28,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.google.code.gson:gson:2.5'
     compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.sangcomz:FishBun:0.3.0@aar'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.4@aar') { transitive = true }
 }

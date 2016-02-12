@@ -78,6 +78,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         final ImageView bike_image;
         final TextView maint_type;
         final ImageButton settings;
+        final ImageButton maint_list;
 
         public Bike_Card_ViewHolder(View v)
         {
@@ -92,6 +93,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             bike_image=(ImageView)v.findViewById(R.id.vehicle_image);
             maint_type=(TextView) v.findViewById(R.id.maint_type_text);
             settings=(ImageButton) v.findViewById(R.id.bike_settings);
+            maint_list=(ImageButton) v.findViewById(R.id.maintenance_list_button);
             Glide.with(v.getContext()).load(R.drawable.test_image_smaller).centerCrop().into(bike_image);
 
             settings.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +216,10 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
 
 
 
+
+
         }
     }
+
+
 }
