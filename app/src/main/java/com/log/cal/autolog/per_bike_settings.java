@@ -3,19 +3,24 @@ package com.log.cal.autolog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.sangcomz.fishbun.FishBun;
+import com.sangcomz.fishbun.define.Define;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -27,12 +32,14 @@ import java.util.List;
  */
 public class per_bike_settings extends AppCompatActivity
 {
+    ArrayList<String> PATH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bike);
+        setupWindowAnimations();
         
         /************
          * Gets the ids of the various objects so that I can talk to them
@@ -43,6 +50,7 @@ public class per_bike_settings extends AppCompatActivity
         EditText model_input= (EditText) findViewById(R.id.model_input);
         EditText year_input= (EditText) findViewById(R.id.year_input);
         EditText mile_input= (EditText) findViewById(R.id.mile_input);
+        ImageView bike_image_chooser=(ImageView)findViewById(R.id.bike_image_chooser);
         
         toolbar.setTitle("Edit");
         setSupportActionBar(toolbar);
@@ -86,7 +94,6 @@ public class per_bike_settings extends AppCompatActivity
         mile_input.setText(Integer.toString(b.bike_mileage));
 
 
-
         /***
          * Declares the radio buttons
          * Declared final so that it can be accseed from an inner class
@@ -114,10 +121,8 @@ public class per_bike_settings extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                TextView mile_header= (TextView) findViewById(R.id.mile_header);
-                
+
                 miles.setChecked(false);
-                mile_header.setText("Odometer Hour Reading");
             }
         });
 
@@ -126,10 +131,8 @@ public class per_bike_settings extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                TextView mile_header= (TextView) findViewById(R.id.mile_header);
                 
                 hours.setChecked(false);
-                mile_header.setText("Odometer Reading");
             }
         });
 
@@ -144,6 +147,13 @@ public class per_bike_settings extends AppCompatActivity
             Intent back=new Intent(this,MainActivity.class);
             startActivity(back);
         }
+
+        bike_image_chooser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FishBun.with(per_bike_settings.this).setCamera(true).setActionBarColor(Color.parseColor("#03a9f4"), Color.parseColor("#0288d1")).setPickerCount(1).startAlbum();
+            }
+        });
 
     }
 
@@ -225,6 +235,11 @@ public class per_bike_settings extends AppCompatActivity
                 Snackbar.make(findViewById(R.id.root_layout), "CANNOT HAVE AN HOUR OR ODOMETER READING UNDER 0", Snackbar.LENGTH_LONG).show();
                 return true;
             }
+            else if (PATH.size()==0)
+            {
+                Snackbar.make(findViewById(R.id.root_layout), "PLEASE ADD A PICTURE", Snackbar.LENGTH_LONG).show();
+                return true;
+            }
             else
             {
                 Intent back_to_main=new Intent(per_bike_settings.this,MainActivity.class);
@@ -235,6 +250,7 @@ public class per_bike_settings extends AppCompatActivity
                 back_to_main.putExtra("bike_year",year_input.getText().toString().trim());
                 back_to_main.putExtra("bike_mile", mile_input.getText().toString().trim());
                 back_to_main.putExtra("maint_type", maint_type);
+                back_to_main.putExtra("path", PATH.get(0));
                 back_to_main.putExtra("location", (int) inc.get("location"));
                 back_to_main.putExtra("id","settings_activity");
                 startActivity(back_to_main);
@@ -244,12 +260,34 @@ public class per_bike_settings extends AppCompatActivity
             }
 
 
-
-
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void setupWindowAnimations()
+    {
+        Fade fade = new Fade();
+        fade.setDuration(3000);
+        getWindow().setEnterTransition(fade);
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent imageData) {
+        super.onActivityResult(requestCode, resultCode, imageData);
+        switch (requestCode) {
+            case Define.ALBUM_REQUEST_CODE:
+                if (resultCode == RESULT_OK)
+                {
+                    ImageView i=(ImageView)findViewById(R.id.bike_image_chooser);
+                    PATH=imageData.getStringArrayListExtra(Define.INTENT_PATH);
+                    Glide.with(this).load(PATH.get(0)).centerCrop().into(i);
+                    break;
+                }
+        }
+    }
+
 
 }
 

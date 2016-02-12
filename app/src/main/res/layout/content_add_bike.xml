@@ -8,121 +8,145 @@
     tools:context="com.log.cal.autolog.add_bike"
     tools:showIn="@layout/activity_add_bike">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vehicle_make"
-        android:textSize="15sp"
-        android:id="@+id/make_heading"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="24dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/make_input"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:textSize="15sp"
-        android:layout_below="@+id/make_heading"
-        android:layout_marginTop="12dp" />
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vehicle_model"
-        android:textSize="15sp"
-        android:id="@+id/model_header"
-        android:layout_below="@+id/make_input"
-        android:layout_alignStart="@+id/make_input"
-        android:layout_marginTop="12dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/model_input"
-        android:textSize="15sp"
-        android:layout_below="@+id/model_header"
-        android:layout_marginTop="12dp"
-        android:layout_alignStart="@+id/model_header"
-        android:layout_alignEnd="@id/make_input" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/bike_image_chooser"
+                android:src="@drawable/ic_add_a_photo_black_24dp"
+                android:background="@color/md_divider_black"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vehicle_year"
-        android:textSize="15sp"
-        android:id="@+id/year_header"
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/model_input"
-        android:layout_alignStart="@+id/model_input" />
+                android:scaleType="centerInside"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/year_input"
-        android:textSize="15sp"
-        android:layout_alignEnd="@id/make_input"
-        android:layout_below="@+id/year_header"
-        android:layout_alignStart="@+id/year_header"
-        android:layout_marginTop="12dp" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bike_image_chooser"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/make_til">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vehicle_maint_type"
-        android:textSize="15sp"
-        android:layout_marginTop="12dp"
-        android:layout_below="@id/year_input"
-        android:id="@+id/hours_or_miles_header"
-        android:layout_alignStart="@+id/year_input"
-        android:layout_alignEnd="@id/year_input"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/vehicle_make"
+                    android:id="@+id/make_input"
+                    android:textSize="16sp"
+                    />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vehicle_maint_hours"
-        android:id="@+id/radio_hour"
-        android:layout_below="@+id/hours_or_miles_header"
-        android:layout_alignStart="@id/hours_or_miles_header"
-        android:layout_marginTop="20dp" />
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vehicle_maint_miles"
-        android:id="@+id/radio_miles"
-        android:layout_toEndOf="@id/radio_hour"
-        android:layout_marginStart="50dp"
-        android:layout_below="@+id/hours_or_miles_header"
-        android:layout_marginTop="20dp"
-        android:checked="true"
-      />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mile_header"
-        android:textSize="15sp"
-        android:id="@+id/mile_header"
-        android:layout_marginTop="25dp"
-        android:layout_below="@id/radio_hour"
-        android:layout_alignStart="@+id/radio_hour" />
+            </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/mile_input"
-        android:textSize="15sp"
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/mile_header"
-        android:layout_alignEnd="@id/make_input"
-        android:layout_alignStart="@id/mile_header" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/make_til"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+
+                android:id="@+id/model_til">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/model"
+                    android:id="@+id/model_input"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/model_til"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/year_til">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:hint="@string/year"
+                    android:id="@+id/year_input"
+                    android:textSize="16sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/mile_til"
+                android:layout_below="@id/year_til">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:hint="@string/mile_header"
+                    android:id="@+id/mile_input"
+                    android:textSize="16sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mile_til"
+                android:layout_alignStart="@id/mile_til"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/vehicle_maint_type"
+                android:textSize="16sp"
+
+                android:id="@+id/hours_or_miles_header"
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hours_or_miles_header"
+                android:layout_alignStart="@id/hours_or_miles_header"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="16sp"
+
+                android:text="@string/vehicle_maint_hours"
+                android:id="@+id/radio_hour"
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/radio_hour"
+                android:layout_marginStart="50dp"
+                android:layout_below="@+id/hours_or_miles_header"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/vehicle_maint_miles"
+                android:id="@+id/radio_miles"
+
+                android:checked="true"
+              />
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

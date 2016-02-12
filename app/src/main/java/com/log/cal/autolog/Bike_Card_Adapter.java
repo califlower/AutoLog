@@ -48,6 +48,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         holder.bike_year.setText(String.valueOf(b.bike_year));
         holder.bike_mile.setText(String.valueOf(b.bike_mileage));
         holder.maint_type.setText(b.maint_type);
+        Glide.with(holder.bike_image.getContext()).load(b.path).centerCrop().into(holder.bike_image);
 
         if (b.maint_type.compareToIgnoreCase("Miles")==0)
         {
@@ -80,6 +81,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
         final ImageButton settings;
         final ImageButton maint_list;
 
+
         public Bike_Card_ViewHolder(View v)
         {
             super(v);
@@ -94,7 +96,7 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             maint_type=(TextView) v.findViewById(R.id.maint_type_text);
             settings=(ImageButton) v.findViewById(R.id.bike_settings);
             maint_list=(ImageButton) v.findViewById(R.id.maintenance_list_button);
-            Glide.with(v.getContext()).load(R.drawable.test_image_smaller).centerCrop().into(bike_image);
+
 
             settings.setOnClickListener(new View.OnClickListener() {
                 @Override

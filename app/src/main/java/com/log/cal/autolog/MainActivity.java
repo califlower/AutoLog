@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
             }
             else
             {
-                bike_array_list=initializeEditList();
+                bike_array_list=initializeList();
             }
         }
         else
@@ -176,7 +176,8 @@ public class MainActivity extends AppCompatActivity
                             inc.get("bike_model").toString(),
                             Integer.parseInt(inc.get("bike_year").toString()),
                             Integer.parseInt(inc.get("bike_mile").toString()),
-                            inc.get("maint_type").toString()
+                            inc.get("maint_type").toString(),
+                            inc.get("path").toString()
                     );
             bike_array_list.add(new_bike);
 
@@ -225,7 +226,7 @@ public class MainActivity extends AppCompatActivity
         Bundle inc=getIntent().getExtras();
 
 
-        if (inc!=null && inc.get("bike_year")!=null && inc.get("bike_make")!=null && inc.get("bike_model")!=null && inc.get("location")!=null)
+        if (inc!=null && inc.get("bike_year")!=null && inc.get("bike_make")!=null && inc.get("bike_model")!=null && inc.get("location")!=null && inc.get("path")!=null)
         {
 
             Gson gson=new Gson();
@@ -236,7 +237,8 @@ public class MainActivity extends AppCompatActivity
                             inc.get("bike_model").toString(),
                             Integer.parseInt(inc.get("bike_year").toString()),
                             Integer.parseInt(inc.get("bike_mile").toString()),
-                            inc.get("maint_type").toString()
+                            inc.get("maint_type").toString(),
+                            inc.get("path").toString()
                     );
             bike_array_list.set((int) inc.get("location"),new_bike);
 
