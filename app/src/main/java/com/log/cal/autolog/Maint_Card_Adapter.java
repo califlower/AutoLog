@@ -33,8 +33,6 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
         holder.maint_name.setText(b.name);
         holder.maint_upcoming.setText(b.interval);
         holder.maint_cost.setText(b.cost.toString());
-
-
     }
 
     @Override

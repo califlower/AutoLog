@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity
                             Integer.parseInt(inc.get("bike_year").toString()),
                             Integer.parseInt(inc.get("bike_mile").toString()),
                             inc.get("maint_type").toString(),
-                            inc.get("path").toString()
+                            inc.get("path").toString(),null
                     );
             bike_array_list.add(new_bike);
 
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity
                             Integer.parseInt(inc.get("bike_year").toString()),
                             Integer.parseInt(inc.get("bike_mile").toString()),
                             inc.get("maint_type").toString(),
-                            inc.get("path").toString()
+                            inc.get("path").toString(),null
                     );
             bike_array_list.set((int) inc.get("location"),new_bike);
 
