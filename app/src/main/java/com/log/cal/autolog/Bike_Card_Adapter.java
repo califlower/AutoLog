@@ -59,7 +59,6 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             holder.update_miles.setText("Update Hours");
         }
 
-
     }
 
     @Override

@@ -24,4 +24,5 @@
     <string name="cost_item">cost_item</string>
     <string name="miles">miles</string>
     <string name="vehicle_image_description">Vehicle image description</string>
+    <string name="title_activity_maintenance">MaintenanceActivity</string>
 </resources>
