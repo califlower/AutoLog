@@ -3,6 +3,7 @@ package com.log.cal.autolog;
 
 import java.util.List;
 
+@SuppressWarnings("CanBeFinal")
 class Bike_Object
 {
 

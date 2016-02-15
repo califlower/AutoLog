@@ -157,8 +157,7 @@ public class MainActivity extends AppCompatActivity
         {
             Gson gson=new Gson();
             Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
-            ArrayList<Bike_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
-            bike_array_list=temp_list;
+            bike_array_list= gson.<ArrayList<Bike_Object>>fromJson(vehicle_gson_array,collectionType);
         }
 
 
@@ -170,6 +169,7 @@ public class MainActivity extends AppCompatActivity
 
             Gson gson=new Gson();
 
+            List<Maint_Object> maint_list=new ArrayList<>();
             Bike_Object new_bike=new Bike_Object
                     (
                             inc.get("bike_make").toString(),
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity
                             Integer.parseInt(inc.get("bike_year").toString()),
                             Integer.parseInt(inc.get("bike_mile").toString()),
                             inc.get("maint_type").toString(),
-                            inc.get("path").toString(),null
+                            inc.get("path").toString(),maint_list
                     );
             bike_array_list.add(new_bike);
 
@@ -218,8 +218,7 @@ public class MainActivity extends AppCompatActivity
         {
             Gson gson=new Gson();
             Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
-            ArrayList<Bike_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
-            bike_array_list=temp_list;
+            bike_array_list= gson.<ArrayList<Bike_Object>>fromJson(vehicle_gson_array,collectionType);
         }
 
 
@@ -238,7 +237,7 @@ public class MainActivity extends AppCompatActivity
                             Integer.parseInt(inc.get("bike_year").toString()),
                             Integer.parseInt(inc.get("bike_mile").toString()),
                             inc.get("maint_type").toString(),
-                            inc.get("path").toString(),null
+                            inc.get("path").toString(),bike_array_list.get((int) inc.get("location")).maint_list
                     );
             bike_array_list.set((int) inc.get("location"),new_bike);
 

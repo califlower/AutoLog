@@ -154,7 +154,7 @@
             android:background="#e0e0e0"
             android:id="@+id/divider">
         </View>
-
+        
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
 
-            android:text="Update Mileage"
+            android:text="@string/update_mileage"
             android:textSize="16sp"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/colorAccent"
@@ -182,7 +182,7 @@
             android:fontFamily="sans-serif-medium"
             android:id="@+id/remove_bike"
 
-            android:text="Remove"
+            android:text="@string/remove"
             android:textSize="16sp"
 
             android:textColor="#000000"

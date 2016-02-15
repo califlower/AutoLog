@@ -4,8 +4,6 @@
     <string name="title_activity_add_bike">add_bike</string>
     <string name="title_activity_bike_settings">per_bike_settings</string>
     <string name="vehicle_make">Vehicle Make</string>
-    <string name="vehicle_model">Vehicle Model</string>
-    <string name="vehicle_year">Vehicle Year</string>
     <string name="vehicle_maint_type">Is Your Vehicle Maintained Using Hours or Miles?</string>
     <string name="vehicle_maint_hours">Hours</string>
     <string name="vehicle_maint_miles">Miles</string>
@@ -17,7 +15,6 @@
     <string name="mileage"> Mileage</string>
     <string name="vehicle_array_preferences">saved_vehicles</string>
     <string name="vehicle_key">vehicle_key</string>
-    <string name="empty_text">empty_string</string>
     <string name="next_maintenance_item">Next Maintenance Item</string>
     <string name="maint_item">maint_item</string>
     <string name="estimated_cost">Estimated Cost</string>
@@ -25,4 +22,10 @@
     <string name="miles">miles</string>
     <string name="vehicle_image_description">Vehicle image description</string>
     <string name="title_activity_maintenance">MaintenanceActivity</string>
+    <string name="update_mileage">Update Mileage</string>
+    <string name="remove">Remove</string>
+    <string name="maint_name">maint_name</string>
+    <string name="upcoming">upcoming</string>
+    <string name="maint_interval_cost">maint_interval_cost</string>
+    <string name="past">past</string>
 </resources>

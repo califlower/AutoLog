@@ -2,14 +2,14 @@ package com.log.cal.autolog;
 
 import android.support.v7.widget.RecyclerView;
 
-/**
- * Created by cal13 on 2/10/2016.
+/******
+ * Makes the FAB dissapear and appear when the scrollview moves and stuff
  */
-public abstract class Add_Fab_Behavior extends RecyclerView.OnScrollListener
+abstract class Add_Fab_Behavior extends RecyclerView.OnScrollListener
 {
-    static final float MINIMUM = 20;
-    int scrollDist = 0;
-    boolean isVisible = true;
+    private static final float MINIMUM = 20;
+    private int scrollDist = 0;
+    private boolean isVisible = true;
 
 
 

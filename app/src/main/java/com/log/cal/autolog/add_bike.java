@@ -114,7 +114,7 @@ public class add_bike extends AppCompatActivity
             EditText mile_input= (EditText) findViewById(R.id.mile_input);
 
             RadioButton hours= (RadioButton) findViewById(R.id.radio_hour);
-            RadioButton miles= (RadioButton) findViewById(R.id.radio_miles);
+
             String maint_type;
 
             if (hours.isChecked()==false)

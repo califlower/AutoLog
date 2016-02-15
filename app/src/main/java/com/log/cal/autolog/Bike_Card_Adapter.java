@@ -97,6 +97,16 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
             maint_list=(ImageButton) v.findViewById(R.id.maintenance_list_button);
 
 
+            maint_list.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent maintenance=new Intent(v.getContext(),MaintenanceActivity.class);
+                    maintenance.putExtra("location",getAdapterPosition());
+                    v.getContext().startActivity(maintenance);
+                }
+            });
+
             settings.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -10,7 +10,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="maint_name"
+            android:text="@string/maint_name"
             android:id="@+id/maint_name"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="upcoming"
+            android:text="@string/upcoming"
             android:id="@+id/maint_upcoming"
             android:layout_below="@+id/maint_name"
             android:layout_alignStart="@+id/maint_name" />
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="maint_interval_cost"
+            android:text="@string/maint_interval_cost"
             android:id="@+id/maint_interval_cost"
             android:layout_below="@+id/maint_upcoming"
             android:layout_alignStart="@+id/maint_upcoming" />
@@ -44,8 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="past"
-                android:id="@+id/maint_past" />
+                android:text="@string/past" />
 
         </LinearLayout>
     </RelativeLayout>

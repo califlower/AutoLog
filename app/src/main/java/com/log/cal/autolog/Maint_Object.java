@@ -6,7 +6,8 @@ import java.util.List;
 
 
 /*Maintenance Object Class */
-public class Maint_Object
+@SuppressWarnings("CanBeFinal")
+class Maint_Object
 {
     String name;
     BigDecimal cost;
