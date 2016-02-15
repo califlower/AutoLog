@@ -27,9 +27,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by cal13 on 2/11/2016.
- */
 public class per_bike_settings extends AppCompatActivity
 {
     ArrayList<String> PATH;
@@ -57,7 +54,7 @@ public class per_bike_settings extends AppCompatActivity
 
 
         /****
-         * Get which item to popuate all the vehicle info with
+         * Get which item to populate all the vehicle info with
         */
         
         Bundle inc=getIntent().getExtras();
@@ -79,8 +76,7 @@ public class per_bike_settings extends AppCompatActivity
         
         Gson gson=new Gson();
         Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
-        ArrayList<Bike_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
-        bike_array_list=temp_list;
+        bike_array_list= gson.<ArrayList<Bike_Object>>fromJson(vehicle_gson_array,collectionType);
 
         Bike_Object b=bike_array_list.get(location);
         
@@ -96,7 +92,7 @@ public class per_bike_settings extends AppCompatActivity
 
         /***
          * Declares the radio buttons
-         * Declared final so that it can be accseed from an inner class
+         * Declared final so that it can be accessed from an inner class
          ****/
         final RadioButton hours=(RadioButton) findViewById(R.id.radio_hour);
         final RadioButton miles=(RadioButton) findViewById(R.id.radio_miles);
@@ -193,7 +189,7 @@ public class per_bike_settings extends AppCompatActivity
             EditText mile_input= (EditText) findViewById(R.id.mile_input);
 
             RadioButton hours= (RadioButton) findViewById(R.id.radio_hour);
-            RadioButton miles= (RadioButton) findViewById(R.id.radio_miles);
+
             String maint_type;
 
             if (hours.isChecked()==false)
