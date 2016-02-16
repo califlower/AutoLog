@@ -64,6 +64,8 @@ public class MaintenanceActivity extends AppCompatActivity
         maint_listview.setLayoutManager(manager);
         Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list);
         maint_listview.setAdapter(m);
+
+
     }
 
 

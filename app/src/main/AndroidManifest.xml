@@ -32,8 +32,8 @@
         <activity
             android:name=".MaintenanceActivity"
             android:label="@string/title_activity_maintenance"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".MaintenanceAddActivity"></activity>
     </application>
 
 </manifest>
