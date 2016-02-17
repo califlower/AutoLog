@@ -1,13 +1,16 @@
 package com.log.cal.autolog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,8 +28,17 @@ public class MaintenanceActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintenance);
         setupWindowAnimations();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
         setSupportActionBar(toolbar);
+        FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.maint_fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(MaintenanceActivity.this, MaintenanceAddActivity.class);
+                startActivity(i);
+            }
+        });
 
 
         List<Bike_Object> bike_array_list;
