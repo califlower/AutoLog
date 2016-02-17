@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     {
         
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         
         final FloatingActionButton add_fab=(FloatingActionButton) findViewById(R.id.fab);

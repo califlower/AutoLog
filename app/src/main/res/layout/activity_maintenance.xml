@@ -15,6 +15,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/maint_toolbar"
             android:layout_width="match_parent"
+            android:transitionName="add_toolbar"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,17 +30,36 @@ public class MaintenanceActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maintenance);
         setupWindowAnimations();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.maint_fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i= new Intent(MaintenanceActivity.this, MaintenanceAddActivity.class);
-                startActivity(i);
+
+
+
+        Intent i=this.getIntent();
+
+        /******
+         * Determines who started this activity
+         * If depending on who started the activity, different things can happen! WOO
+         * Mostly just determines what happens to the vehicle list
+         *****/
+
+        if (i!=null && i.getExtras()!=null && i.getExtras().get("id")!=null)
+        {
+            if (i.getExtras().get("id").toString().compareToIgnoreCase("add_activity")==0)
+            {
+
             }
-        });
+            else
+            {
+
+            }
+        }
+        else
+        {
+            
+        }
 
 
         List<Bike_Object> bike_array_list;
@@ -61,7 +82,7 @@ public class MaintenanceActivity extends AppCompatActivity
 
         Bundle inc=getIntent().getExtras();
 
-        int location=(int) inc.get("location");
+        final int location=(int) inc.get("location");
 
         Bike_Object list_extract=bike_array_list.get(location);
 
@@ -78,12 +99,26 @@ public class MaintenanceActivity extends AppCompatActivity
         maint_listview.setAdapter(m);
 
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i= new Intent(MaintenanceActivity.this, MaintenanceAddActivity.class);
+                i.putExtra("location",location);
+                ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceActivity.this);
+                ActivityCompat.startActivity(MaintenanceActivity.this,i, options.toBundle());
+            }
+        });
+
+
     }
 
 
-    private void setupWindowAnimations() {
+    private void setupWindowAnimations()
+    {
         Fade fade = new Fade();
         fade.setDuration(1000);
         getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
     }
 }

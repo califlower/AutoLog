@@ -1,6 +1,5 @@
 package com.log.cal.autolog;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -10,12 +9,12 @@ import java.util.List;
 class Maint_Object
 {
     String name;
-    BigDecimal cost;
+    Double cost;
     int interval;
     List<Date> dates_done;
     List<Integer>miles_done;
 
-    public Maint_Object(String name,BigDecimal cost, int interval,List<Date> dates_done, List<Integer> miles_done)
+    public Maint_Object(String name,Double cost, int interval,List<Date> dates_done, List<Integer> miles_done)
     {
         this.name=name;
         this.cost=cost;
