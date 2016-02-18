@@ -3,27 +3,36 @@ package com.log.cal.autolog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.Adapter;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.MaterialDialog.Builder;
+import com.afollestad.materialdialogs.MaterialDialog.InputCallback;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.log.cal.autolog.R.id;
+import com.log.cal.autolog.R.layout;
+import com.log.cal.autolog.R.string;
+import com.log.cal.autolog.Vehicle_Card_Adapter.Bike_Card_ViewHolder;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adapter.Bike_Card_ViewHolder>
+public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
 {
     private final List<Vehicle_Object> bikes;
 
@@ -33,17 +42,17 @@ public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adap
     }
 
     @Override
-    public Vehicle_Card_Adapter.Bike_Card_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public Bike_Card_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View itemView= LayoutInflater.from(parent.getContext()).inflate(R.layout.vehicle_card,parent,false);
-        return new Bike_Card_ViewHolder(itemView);
+        View itemView= LayoutInflater.from(parent.getContext()).inflate(layout.vehicle_card,parent,false);
+        return new Vehicle_Card_Adapter.Bike_Card_ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(Bike_Card_ViewHolder holder, int position)
+    public void onBindViewHolder(Vehicle_Card_Adapter.Bike_Card_ViewHolder holder, int position)
     {
 
-        Vehicle_Object b=bikes.get(position);
+        Vehicle_Object b= this.bikes.get(position);
 
         holder.bike_make.setText(b.bike_make);
         holder.bike_model.setText(b.bike_model);
@@ -78,16 +87,15 @@ public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adap
         }
 
 
-
     }
 
     @Override
     public int getItemCount()
     {
-        return bikes.size();
+        return this.bikes.size();
     }
 
-    public class Bike_Card_ViewHolder extends RecyclerView.ViewHolder
+    public class Bike_Card_ViewHolder extends ViewHolder
     {
         final TextView bike_make;
         final TextView bike_model;
@@ -108,41 +116,41 @@ public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adap
         {
             super(v);
 
-            bike_make=(TextView) v.findViewById(R.id.card_make);
-            bike_model=(TextView) v.findViewById(R.id.card_model);
-            bike_year=(TextView) v.findViewById(R.id.card_year);
-            bike_mile=(TextView) v.findViewById(R.id.card_mileage);
-            update_miles=(TextView) v.findViewById(R.id.update_miles);
-            remove_bike=(TextView) v.findViewById(R.id.remove_bike);
-            bike_image=(ImageView)v.findViewById(R.id.vehicle_image);
-            maint_type=(TextView) v.findViewById(R.id.maint_type_text);
-            settings=(ImageButton) v.findViewById(R.id.bike_settings);
-            maint_list=(ImageButton) v.findViewById(R.id.maintenance_list_button);
-            upcoming=(TextView)v.findViewById(R.id.next_maint);
-            est_cost=(TextView)v.findViewById(R.id.est_cost_item);
+            this.bike_make =(TextView) v.findViewById(id.card_make);
+            this.bike_model =(TextView) v.findViewById(id.card_model);
+            this.bike_year =(TextView) v.findViewById(id.card_year);
+            this.bike_mile =(TextView) v.findViewById(id.card_mileage);
+            this.update_miles =(TextView) v.findViewById(id.update_miles);
+            this.remove_bike =(TextView) v.findViewById(id.remove_bike);
+            this.bike_image =(ImageView)v.findViewById(id.vehicle_image);
+            this.maint_type =(TextView) v.findViewById(id.maint_type_text);
+            this.settings =(ImageButton) v.findViewById(id.bike_settings);
+            this.maint_list =(ImageButton) v.findViewById(id.maintenance_list_button);
+            this.upcoming =(TextView)v.findViewById(id.next_maint);
+            this.est_cost =(TextView)v.findViewById(id.est_cost_item);
 
 
-            maint_list.setOnClickListener(new View.OnClickListener() {
+            this.maint_list.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
                     Intent maintenance=new Intent(v.getContext(),MaintenanceActivity.class);
-                    maintenance.putExtra("location",getAdapterPosition());
+                    maintenance.putExtra("location", Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
                     v.getContext().startActivity(maintenance);
 
 
                 }
             });
 
-            settings.setOnClickListener(new View.OnClickListener() {
+            this.settings.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent bike_settings=new Intent(v.getContext(),Per_Vehicle_Settings.class);
-                    bike_settings.putExtra("location",getAdapterPosition());
+                    bike_settings.putExtra("location", Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
                     v.getContext().startActivity(bike_settings);
                 }
             });
-            remove_bike.setOnClickListener(new View.OnClickListener()
+            this.remove_bike.setOnClickListener(new OnClickListener()
             {
                 @Override
                 public void onClick(View v)
@@ -153,8 +161,8 @@ public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adap
                      * Handles the issue of not removing saved objects
                      */
                     Context context=v.getContext();
-                    final SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
-                    String vehicle_gson_array=sharedPref.getString(context.getString(R.string.vehicle_key),"empty_key");
+                    SharedPreferences sharedPref = context.getSharedPreferences(context.getString(string.vehicle_array_preferences), Context.MODE_PRIVATE);
+                    String vehicle_gson_array=sharedPref.getString(context.getString(string.vehicle_key),"empty_key");
 
                     /******
                      * Checks if the saved array is empty or not
@@ -169,15 +177,15 @@ public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adap
                         /*******
                          * Removes item from recyclerview and sharedpreferences
                          */
-                        temp_list.remove(getAdapterPosition());
-                        bikes.remove(getAdapterPosition());
-                        notifyItemRemoved(getAdapterPosition());
+                        temp_list.remove(Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
+                        Vehicle_Card_Adapter.this.bikes.remove(Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
+                        Vehicle_Card_Adapter.this.notifyItemRemoved(Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
 
-                        SharedPreferences.Editor editor = sharedPref.edit();
+                        Editor editor = sharedPref.edit();
                         String insert_preference=gson.toJson(temp_list);
 
 
-                        editor.putString(context.getString(R.string.vehicle_key),insert_preference);
+                        editor.putString(context.getString(string.vehicle_key),insert_preference);
 
                         editor.apply();
 
@@ -190,7 +198,7 @@ public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adap
                 }
             });
 
-            update_miles.setOnClickListener(new View.OnClickListener()
+            this.update_miles.setOnClickListener(new OnClickListener()
             {
                 @Override
                 public void onClick(View v)
@@ -198,18 +206,19 @@ public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adap
 
                     final Context context=v.getContext();
 
-                    new MaterialDialog.Builder(v.getContext())
+                    new Builder(v.getContext())
                             .title("Update Mileage")
                             .inputType(InputType.TYPE_CLASS_NUMBER)
                             .inputRange(1,-1)
                             .negativeText("Cancel")
-                            .input("E.g. 150000", "", new MaterialDialog.InputCallback()
+                            .input("E.g. 150000", "", new InputCallback()
                             {
 
+                                @Override
                                 public void onInput(MaterialDialog dialog, CharSequence input)
                                 {
-                                    final SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
-                                    String vehicle_gson_array=sharedPref.getString(context.getString(R.string.vehicle_key),"empty_key");
+                                    SharedPreferences sharedPref = context.getSharedPreferences(context.getString(string.vehicle_array_preferences), Context.MODE_PRIVATE);
+                                    String vehicle_gson_array=sharedPref.getString(context.getString(string.vehicle_key),"empty_key");
 
                                     /******
                                      * Checks if the saved array is empty or not
@@ -226,19 +235,19 @@ public class Vehicle_Card_Adapter extends RecyclerView.Adapter<Vehicle_Card_Adap
                                          */
 
 
-                                        Vehicle_Object b=bikes.get(getAdapterPosition());
+                                        Vehicle_Object b= Vehicle_Card_Adapter.this.bikes.get(Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
                                         b.bike_mileage=Integer.parseInt(input.toString());
 
-                                        temp_list.set(getAdapterPosition(),b);
-                                        bikes.set(getAdapterPosition(),b);
+                                        temp_list.set(Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition(),b);
+                                        Vehicle_Card_Adapter.this.bikes.set(Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition(),b);
 
-                                        notifyItemRemoved(getAdapterPosition());
+                                        Vehicle_Card_Adapter.this.notifyItemRemoved(Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
 
-                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                        Editor editor = sharedPref.edit();
                                         String insert_preference=gson.toJson(temp_list);
 
 
-                                        editor.putString(context.getString(R.string.vehicle_key),insert_preference);
+                                        editor.putString(context.getString(string.vehicle_key),insert_preference);
 
                                         editor.apply();
 
