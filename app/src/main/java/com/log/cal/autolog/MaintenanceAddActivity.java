@@ -28,9 +28,9 @@ public class MaintenanceAddActivity extends AppCompatActivity
         setContentView(R.layout.activity_maintenance_add);
         setupWindowAnimations();
         Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
-
-        setSupportActionBar(toolbar);
         toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
 
 
 
@@ -45,7 +45,7 @@ public class MaintenanceAddActivity extends AppCompatActivity
     private void setupWindowAnimations()
     {
         Fade fade = new Fade();
-        fade.setDuration(1000);
+        fade.setDuration(500);
         getWindow().setEnterTransition(fade);
         getWindow().setExitTransition(fade);
     }
@@ -83,7 +83,7 @@ public class MaintenanceAddActivity extends AppCompatActivity
                 Bundle inc=getIntent().getExtras();
                 final int location=(int) inc.get("location");
 
-                back_to_main.putExtra("object",g.toJson(obj));
+                back_to_main.putExtra("obj",g.toJson(obj));
                 back_to_main.putExtra("id", "add_activity");
                 back_to_main.putExtra("location",location);
 
