@@ -104,6 +104,8 @@ public class Bike_Card_Adapter extends RecyclerView.Adapter<Bike_Card_Adapter.Bi
                     Intent maintenance=new Intent(v.getContext(),MaintenanceActivity.class);
                     maintenance.putExtra("location",getAdapterPosition());
                     v.getContext().startActivity(maintenance);
+
+
                 }
             });
 

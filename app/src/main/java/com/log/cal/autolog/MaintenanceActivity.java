@@ -31,9 +31,12 @@ public class MaintenanceActivity extends AppCompatActivity
         setContentView(R.layout.activity_maintenance);
         setupWindowAnimations();
         final Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
+        toolbar.setTitle("Maintenance Item List");
         setSupportActionBar(toolbar);
         FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.maint_fab);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
 
@@ -72,7 +75,7 @@ public class MaintenanceActivity extends AppCompatActivity
                 Intent i= new Intent(MaintenanceActivity.this, MaintenanceAddActivity.class);
                 Bundle inc=getIntent().getExtras();
                 i.putExtra("location",(int) inc.get("location"));
-                ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceActivity.this);
+                ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceActivity.this, toolbar,"add_toolbar");
                 ActivityCompat.startActivity(MaintenanceActivity.this,i, options.toBundle());
             }
         });
@@ -80,6 +83,12 @@ public class MaintenanceActivity extends AppCompatActivity
 
     }
 
+
+    public boolean onSupportNavigateUp()
+    {
+        onBackPressed();
+        return true;
+    }
 
     private void setupWindowAnimations()
     {
@@ -135,26 +144,26 @@ public class MaintenanceActivity extends AppCompatActivity
              * handles the saving part
              * retrieves vehicles
              */
+            Gson gson=new Gson();
             Context context=this;
+            Bundle inc=getIntent().getExtras();
             final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
+            final int location=(int) inc.get("location");
+            RecyclerView maint_listview = (RecyclerView) findViewById(R.id.maint_list);
+            LinearLayoutManager manager = new LinearLayoutManager(this);
+            Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
             String vehicle_gson_array=sharedPref.getString(getString(R.string.vehicle_key),"empty_key");
 
             /******
              * Checks if the saved array is empty or not
              */
 
-            Gson gson=new Gson();
-            Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
+
             bike_array_list= gson.<ArrayList<Bike_Object>>fromJson(vehicle_gson_array,collectionType);
 
 
-            Bundle inc=getIntent().getExtras();
-
-            final int location=(int) inc.get("location");
 
             Bike_Object list_extract=bike_array_list.get(location);
-
-            RecyclerView maint_listview = (RecyclerView) findViewById(R.id.maint_list);
 
             List<Maint_Object> maint_list = list_extract.maint_list;
             Type temp = new TypeToken<Maint_Object>(){}.getType();
@@ -165,7 +174,7 @@ public class MaintenanceActivity extends AppCompatActivity
             list_extract.maint_list=maint_list;
 
             maint_listview.setHasFixedSize(true);
-            LinearLayoutManager manager = new LinearLayoutManager(this);
+
 
             manager.setOrientation(LinearLayoutManager.VERTICAL);
             maint_listview.setLayoutManager(manager);
@@ -175,12 +184,10 @@ public class MaintenanceActivity extends AppCompatActivity
 
             bike_array_list.set((int) inc.get("location"),list_extract);
 
+
             SharedPreferences.Editor editor = sharedPref.edit();
-
             String insert_preference=gson.toJson(bike_array_list);
-
             editor.putString(getString(R.string.vehicle_key),insert_preference);
-
             editor.apply();
 
 
