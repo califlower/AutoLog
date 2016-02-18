@@ -67,8 +67,9 @@ public class MaintenanceAddActivity extends AppCompatActivity
             EditText name= (EditText)findViewById(R.id.maint_name_input);
             EditText interval= (EditText)findViewById(R.id.maint_interval_input);
             EditText cost= (EditText)findViewById(R.id.maint_cost_input);
+            EditText last_done=(EditText)findViewById(R.id.maint_last_done_input);
 
-            if (name.getText().toString().trim().length()==0 || cost.getText().toString().trim().length()==0||interval.getText().toString().trim().length()==0)
+            if (name.getText().toString().trim().length()==0 || cost.getText().toString().trim().length()==0||interval.getText().toString().trim().length()==0 || last_done.getText().toString().trim().length()==0)
             {
                 Snackbar.make(findViewById(R.id.root_layout), "MISSING AN INPUT", Snackbar.LENGTH_LONG).show();
                 return true;
@@ -76,10 +77,18 @@ public class MaintenanceAddActivity extends AppCompatActivity
             else
             {
                 Intent back_to_main=new Intent(MaintenanceAddActivity.this,MaintenanceActivity.class);
+
                 Gson g=new Gson();
+
                 List<Date> dates_done=new ArrayList<>();
                 List<Integer>miles_done=new ArrayList<>();
+
+                int temp=Integer.parseInt(String.valueOf(last_done.getText()));
+                miles_done.add(temp);
+
                 Maint_Object obj=new Maint_Object(name.getText().toString().trim(),Double.parseDouble(cost.getText().toString().trim()),Integer.parseInt(interval.getText().toString().trim()),dates_done,miles_done);
+
+
                 Bundle inc=getIntent().getExtras();
                 final int location=(int) inc.get("location");
 

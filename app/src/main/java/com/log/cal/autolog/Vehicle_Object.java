@@ -4,7 +4,7 @@ package com.log.cal.autolog;
 import java.util.List;
 
 @SuppressWarnings("CanBeFinal")
-class Bike_Object
+class Vehicle_Object
 {
 
     String bike_make;
@@ -16,7 +16,7 @@ class Bike_Object
     List<Maint_Object> maint_list;
 
 // --Commented out by Inspection START (2/9/2016 1:24 AM):
-//    public Bike_Object()
+//    public Vehicle_Object()
 //    {
 //        this.bike_make="No Make Specified";
 //        this.bike_model="No Model Specified";
@@ -24,7 +24,7 @@ class Bike_Object
 //
 //    }
 // --Commented out by Inspection STOP (2/9/2016 1:24 AM)
-    public Bike_Object(String bike_make,String bike_model, int bike_year, int bike_mileage, String maint_type, String path, List<Maint_Object> maint_list )
+    public Vehicle_Object(String bike_make, String bike_model, int bike_year, int bike_mileage, String maint_type, String path, List<Maint_Object> maint_list )
     {
         this.bike_make=bike_make;
         this.bike_model=bike_model;

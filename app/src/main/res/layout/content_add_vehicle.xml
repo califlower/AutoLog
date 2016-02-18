@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.log.cal.autolog.add_bike"
-    tools:showIn="@layout/activity_add_bike">
+    tools:context=".Add_Vehicle"
+    tools:showIn="@layout/activity_add_vehicle">
 
     <ScrollView
         android:layout_width="match_parent"

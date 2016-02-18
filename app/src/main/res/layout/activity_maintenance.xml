@@ -21,13 +21,18 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-    <android.support.v7.widget.RecyclerView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginTop="?actionBarSize"
-        android:layout_height="match_parent"
-        android:id="@+id/maint_list">
+        android:background="#FFEEEEEE"
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/maint_list"/>
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

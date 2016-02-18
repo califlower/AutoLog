@@ -82,6 +82,26 @@
         </android.support.design.widget.TextInputLayout>
 
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/til_last_done"
+            android:layout_below="@id/til_cost"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:hint="At what mileage was this last done?"
+                android:id="@+id/maint_last_done_input"
+                />
+
+
+        </android.support.design.widget.TextInputLayout>
+
+
 
     </RelativeLayout>
 

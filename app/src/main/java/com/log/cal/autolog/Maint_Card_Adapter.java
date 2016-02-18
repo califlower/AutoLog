@@ -11,10 +11,12 @@ import java.util.List;
 public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.Maint_Card_ViewHolder>
 {
     private final List<Maint_Object> maintenance;
+    private final int odometer;
 
-    public Maint_Card_Adapter(List<Maint_Object> maintenance)
+    public Maint_Card_Adapter(List<Maint_Object> maintenance, int odometer)
     {
         this.maintenance=maintenance;
+        this.odometer=odometer;
     }
 
     @Override
@@ -31,7 +33,12 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
         Maint_Object b=maintenance.get(position);
 
         holder.maint_name.setText(b.name);
-        holder.maint_upcoming.setText(String.valueOf(b.interval));
+
+        if (b.miles_done.size()!=0)
+            holder.maint_upcoming.setText(String.valueOf((b.interval+b.miles_done.get(0))-odometer)+" Until Next Maintenance");
+
+        //last_done+interval - current miles
+
         holder.maint_cost.setText("$"+b.cost.toString()+" Estimated Cost");
     }
 
@@ -46,6 +53,7 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
         final TextView maint_name;
         final TextView maint_upcoming;
         final TextView maint_cost;
+
 
         public Maint_Card_ViewHolder(View v)
         {

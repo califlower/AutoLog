@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".add_bike"
+            android:name=".Add_Vehicle"
             android:label="@string/title_activity_add_bike"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".per_bike_settings"
+            android:name=".Per_Vehicle_Settings"
             android:label="@string/title_activity_bike_settings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

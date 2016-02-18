@@ -6,7 +6,7 @@ import java.util.List;
 
 /*Maintenance Object Class */
 @SuppressWarnings("CanBeFinal")
-class Maint_Object
+class Maint_Object implements Comparable<Maint_Object>
 {
     String name;
     Double cost;
@@ -21,6 +21,17 @@ class Maint_Object
         this.interval=interval;
         this.dates_done=dates_done;
         this.miles_done=miles_done;
+    }
+
+    public int compareTo(Maint_Object m)
+    {
+        if ((interval+miles_done.get(0))<(m.interval+m.miles_done.get(0)))
+        {
+            return -1;
+
+        }
+        else
+            return 1;
     }
 }
 

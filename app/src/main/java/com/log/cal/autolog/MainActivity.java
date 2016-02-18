@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         
         final FloatingActionButton add_fab=(FloatingActionButton) findViewById(R.id.fab);
-        List<Bike_Object> bike_array_list;
+        List<Vehicle_Object> bike_array_list;
         RecyclerView bike_list=(RecyclerView) findViewById(R.id.bike_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager manager=new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         bike_list.setLayoutManager(manager);
-        Bike_Card_Adapter b=new Bike_Card_Adapter(bike_array_list);
+        Vehicle_Card_Adapter b=new Vehicle_Card_Adapter(bike_array_list);
         bike_list.setAdapter(b);
 
         /****
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
 
             public void onClick(View view)
             {
-                Intent intent = new Intent(MainActivity.this, add_bike.class);
+                Intent intent = new Intent(MainActivity.this, Add_Vehicle.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_up_incoming,R.anim.slide_up_outgoing);
             }
@@ -135,9 +135,9 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private List<Bike_Object> initializeList()
+    private List<Vehicle_Object> initializeList()
     {
-        List<Bike_Object> bike_array_list;
+        List<Vehicle_Object> bike_array_list;
         /********************
          * handles the saving part
          * retrieves vehicles
@@ -157,8 +157,8 @@ public class MainActivity extends AppCompatActivity
         else
         {
             Gson gson=new Gson();
-            Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
-            bike_array_list= gson.<ArrayList<Bike_Object>>fromJson(vehicle_gson_array,collectionType);
+            Type collectionType = new TypeToken<ArrayList<Vehicle_Object>>(){}.getType();
+            bike_array_list= gson.<ArrayList<Vehicle_Object>>fromJson(vehicle_gson_array,collectionType);
         }
 
 
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
             Gson gson=new Gson();
 
             List<Maint_Object> maint_list=new ArrayList<>();
-            Bike_Object new_bike=new Bike_Object
+            Vehicle_Object new_bike=new Vehicle_Object
                     (
                             inc.get("bike_make").toString(),
                             inc.get("bike_model").toString(),
@@ -196,9 +196,9 @@ public class MainActivity extends AppCompatActivity
         return bike_array_list;
     }
 
-    private List<Bike_Object> initializeEditList()
+    private List<Vehicle_Object> initializeEditList()
     {
-        List<Bike_Object> bike_array_list;
+        List<Vehicle_Object> bike_array_list;
         /********************
          * handles the saving part
          * retrieves vehicles
@@ -218,8 +218,8 @@ public class MainActivity extends AppCompatActivity
         else
         {
             Gson gson=new Gson();
-            Type collectionType = new TypeToken<ArrayList<Bike_Object>>(){}.getType();
-            bike_array_list= gson.<ArrayList<Bike_Object>>fromJson(vehicle_gson_array,collectionType);
+            Type collectionType = new TypeToken<ArrayList<Vehicle_Object>>(){}.getType();
+            bike_array_list= gson.<ArrayList<Vehicle_Object>>fromJson(vehicle_gson_array,collectionType);
         }
 
 
@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity
 
             Gson gson=new Gson();
 
-            Bike_Object new_bike=new Bike_Object
+            Vehicle_Object new_bike=new Vehicle_Object
                     (
                             inc.get("bike_make").toString(),
                             inc.get("bike_model").toString(),
