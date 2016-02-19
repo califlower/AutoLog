@@ -76,14 +76,14 @@ public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
             holder.upcoming.setText("No Maintenance Items Added");
             holder.upcoming.setTextColor(Color.parseColor("#f44336"));
             holder.est_cost.setText("Not Applicable");
-            holder.est_cost.setTextColor(Color.parseColor("#f44336"));
+            holder.est_cost.setTextColor(Color.parseColor("#ff5252"));
         }
         else
         {
             Collections.sort(b.maint_list);
             Maint_Object m=b.maint_list.get(0);
             holder.upcoming.setText(m.name);
-            holder.est_cost.setText(m.cost.toString());
+            holder.est_cost.setText('$'+ m.cost.toString());
         }
 
 

@@ -136,11 +136,21 @@ public class MaintenanceActivity extends AppCompatActivity
 
         Collections.sort(maint_list);
 
+        list_extract.maint_list=maint_list;
+        bike_array_list.set(location,list_extract);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        String insert_preference=gson.toJson(bike_array_list);
+        editor.putString(getString(R.string.vehicle_key),insert_preference);
+        editor.apply();
+
+
+
         maint_listview.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         maint_listview.setLayoutManager(manager);
-        Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage);
+        Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location);
         maint_listview.setAdapter(m);
     }
 
@@ -182,12 +192,6 @@ public class MaintenanceActivity extends AppCompatActivity
             maint_list.add(temp_maint);
             list_extract.maint_list=maint_list;
 
-            maint_listview.setHasFixedSize(true);
-
-            manager.setOrientation(LinearLayoutManager.VERTICAL);
-            maint_listview.setLayoutManager(manager);
-            Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage);
-            maint_listview.setAdapter(m);
 
 
             bike_array_list.set((int) inc.get("location"),list_extract);
@@ -196,6 +200,17 @@ public class MaintenanceActivity extends AppCompatActivity
             String insert_preference=gson.toJson(bike_array_list);
             editor.putString(getString(R.string.vehicle_key),insert_preference);
             editor.apply();
+
+
+
+            maint_listview.setHasFixedSize(true);
+
+            manager.setOrientation(LinearLayoutManager.VERTICAL);
+            maint_listview.setLayoutManager(manager);
+            Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location);
+            maint_listview.setAdapter(m);
+
+
 
 
 
