@@ -2,6 +2,7 @@ package com.log.cal.autolog;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.Maint_Card_ViewHolder>
@@ -68,8 +71,25 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
         for (int i=0; i<b.miles_done.size();i++)
         {
             TextView t=new TextView(holder.llpast.getContext());
-            t.setText(b.name+" done at "+ b.miles_done.get(i).toString());
-            holder.llpast.addView(t);
+
+            try
+            {
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy)");
+
+                Date d=b.dates_done.get(i);
+                String s=sdf.format(d);
+                t.setText("Done at"+ b.miles_done.get(i).toString()+ " on " + b);
+
+                t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                holder.llpast.addView(t);
+            }
+            catch (Exception e)
+            {
+                t.setText("Done at "+ b.miles_done.get(i).toString()+" on -- -- --");
+                t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                holder.llpast.addView(t);
+            }
+
         }
     }
 

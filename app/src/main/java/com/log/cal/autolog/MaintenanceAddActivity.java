@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
+import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -30,6 +31,11 @@ public class MaintenanceAddActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
 
 
@@ -103,6 +109,22 @@ public class MaintenanceAddActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onSupportNavigateUp()
+    {
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
+        Slide slide=new Slide();
+        slide.setDuration(500);
+        slide.setSlideEdge(3);
+        getWindow().setExitTransition(slide);
+
+        Intent i= new Intent(MaintenanceAddActivity.this, MaintenanceActivity.class);
+        Bundle inc=getIntent().getExtras();
+        i.putExtra("location",(int) inc.get("location"));
+        ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceAddActivity.this,toolbar,"add_toolbar");
+        ActivityCompat.startActivity(MaintenanceAddActivity.this,i, options.toBundle());
+        return true;
     }
 
 

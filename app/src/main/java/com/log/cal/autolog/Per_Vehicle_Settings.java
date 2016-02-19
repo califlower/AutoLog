@@ -6,12 +6,16 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
+import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -155,9 +159,25 @@ public class Per_Vehicle_Settings extends AppCompatActivity
 
     public boolean onSupportNavigateUp()
     {
-        onBackPressed();
-        overridePendingTransition(R.anim.from_left_in,R.anim.to_right_out);
+
+        InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.add_bike_toolbar);
+
+        imm.hideSoftInputFromWindow(toolbar.getWindowToken(), 0);
+
+        Slide slide=new Slide();
+        slide.setDuration(500);
+        slide.setSlideEdge(3);
+        getWindow().setExitTransition(slide);
+
+
+        Intent i= new Intent(Per_Vehicle_Settings.this, MainActivity.class);
+        ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(Per_Vehicle_Settings.this,toolbar,"add_toolbar");
+        ActivityCompat.startActivity(Per_Vehicle_Settings.this,i, options.toBundle());
         return true;
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu)
@@ -264,7 +284,7 @@ public class Per_Vehicle_Settings extends AppCompatActivity
     private void setupWindowAnimations()
     {
         Fade fade = new Fade();
-        fade.setDuration(3000);
+        fade.setDuration(500);
         getWindow().setEnterTransition(fade);
     }
 

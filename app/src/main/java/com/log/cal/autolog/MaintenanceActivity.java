@@ -88,13 +88,14 @@ public class MaintenanceActivity extends AppCompatActivity
 
     public boolean onSupportNavigateUp()
     {
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
         Slide slide=new Slide();
         slide.setDuration(500);
         slide.setSlideEdge(3);
         getWindow().setExitTransition(slide);
 
         Intent i= new Intent(MaintenanceActivity.this, MainActivity.class);
-        ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceActivity.this);
+        ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceActivity.this,toolbar,"add_toolbar");
         ActivityCompat.startActivity(MaintenanceActivity.this,i, options.toBundle());
         return true;
     }
