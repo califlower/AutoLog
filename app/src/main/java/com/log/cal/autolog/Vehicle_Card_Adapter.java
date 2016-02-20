@@ -1,12 +1,17 @@
 package com.log.cal.autolog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,9 +139,16 @@ public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
                 @Override
                 public void onClick(View v)
                 {
+                    //Kinda hacky, totes works//
+
+                    AppCompatActivity a= (AppCompatActivity) v.getContext();
+
+                    Toolbar t=(Toolbar) a.findViewById(id.toolbar);
                     Intent maintenance=new Intent(v.getContext(),MaintenanceActivity.class);
                     maintenance.putExtra("location", Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
-                    v.getContext().startActivity(maintenance);
+
+                    ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(),t,"add_toolbar");
+                    ActivityCompat.startActivity((Activity) v.getContext(),maintenance, options.toBundle());
 
 
                 }
@@ -144,10 +156,17 @@ public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
 
             this.settings.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
+                    AppCompatActivity a= (AppCompatActivity) v.getContext();
+                    Toolbar t=(Toolbar) a.findViewById(id.toolbar);
+
                     Intent bike_settings=new Intent(v.getContext(),Per_Vehicle_Settings.class);
+
                     bike_settings.putExtra("location", Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
-                    v.getContext().startActivity(bike_settings);
+
+                    ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(),t,"add_toolbar");
+                    ActivityCompat.startActivity((Activity) v.getContext(),bike_settings, options.toBundle());
                 }
             });
             this.remove_bike.setOnClickListener(new OnClickListener()
