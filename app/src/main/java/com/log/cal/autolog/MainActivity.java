@@ -162,6 +162,10 @@ public class MainActivity extends AppCompatActivity
             bike_array_list= gson.<ArrayList<Vehicle_Object>>fromJson(vehicle_gson_array,collectionType);
         }
 
+        if (bike_array_list.size()==0)
+        {
+
+        }
 
         Bundle inc=getIntent().getExtras();
 
