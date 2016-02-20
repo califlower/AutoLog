@@ -176,6 +176,7 @@ public class Per_Vehicle_Settings extends AppCompatActivity
         Intent i= new Intent(Per_Vehicle_Settings.this, MainActivity.class);
         ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(Per_Vehicle_Settings.this,toolbar,"add_toolbar");
         ActivityCompat.startActivity(Per_Vehicle_Settings.this,i, options.toBundle());
+
         return true;
 
     }
@@ -274,8 +275,6 @@ public class Per_Vehicle_Settings extends AppCompatActivity
                 return true;
 
             }
-
-
         }
 
         return super.onOptionsItemSelected(item);

@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -79,9 +81,9 @@ public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
         if (b.maint_list.size()==0)
         {
             holder.upcoming.setText("No Maintenance Items Added");
-            holder.upcoming.setTextColor(Color.parseColor("#f44336"));
+            holder.upcoming.setTextColor(Color.parseColor("#e57373"));
             holder.est_cost.setText("Not Applicable");
-            holder.est_cost.setTextColor(Color.parseColor("#ff5252"));
+            holder.est_cost.setTextColor(Color.parseColor("#e57373"));
         }
         else
         {
@@ -144,10 +146,15 @@ public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
                     AppCompatActivity a= (AppCompatActivity) v.getContext();
 
                     Toolbar t=(Toolbar) a.findViewById(id.toolbar);
+                    FloatingActionButton f= (FloatingActionButton) a.findViewById(id.fab);
+
                     Intent maintenance=new Intent(v.getContext(),MaintenanceActivity.class);
                     maintenance.putExtra("location", Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
 
-                    ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(),t,"add_toolbar");
+                    Pair<View, String> toolbar = Pair.create((View)t, "add_toolbar");
+                    Pair<View, String> fab = Pair.create((View)f, "fab");
+
+                    ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(),toolbar,fab);
                     ActivityCompat.startActivity((Activity) v.getContext(),maintenance, options.toBundle());
 
 

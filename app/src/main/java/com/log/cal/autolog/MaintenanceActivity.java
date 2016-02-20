@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,7 +40,6 @@ public class MaintenanceActivity extends AppCompatActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
 
 
         Intent i=this.getIntent();
@@ -88,15 +88,22 @@ public class MaintenanceActivity extends AppCompatActivity
 
     public boolean onSupportNavigateUp()
     {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
+        final Toolbar t = (Toolbar) findViewById(R.id.maint_toolbar);
+        final FloatingActionButton f= (FloatingActionButton) findViewById(R.id.maint_fab);
+
         Slide slide=new Slide();
         slide.setDuration(500);
         slide.setSlideEdge(3);
         getWindow().setExitTransition(slide);
 
         Intent i= new Intent(MaintenanceActivity.this, MainActivity.class);
-        ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceActivity.this,toolbar,"add_toolbar");
+
+        Pair<View, String> toolbar = Pair.create((View)t, "add_toolbar");
+        Pair<View, String> fab = Pair.create((View)f, "fab");
+
+        ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceActivity.this,fab,toolbar);
         ActivityCompat.startActivity(MaintenanceActivity.this,i, options.toBundle());
+
         return true;
     }
 
