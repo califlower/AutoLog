@@ -3,15 +3,18 @@ package com.log.cal.autolog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -125,16 +128,49 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
 
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    new MaterialDialog.Builder(v.getContext())
-                            .title("Update Mileage")
-                            .inputType(InputType.TYPE_DATETIME_VARIATION_DATE)
+                public void onClick(View v)
+                {
+                   new MaterialDialog.Builder(v.getContext())
+                            .title("Add a Mileage and Date")
+                            .customView(R.layout.date_time_view,true)
                             .inputRange(1,-1)
-                            .negativeText("Cancel").show();
+                            .positiveText("Add History")
+                            .negativeText("Cancel")
+                           .onPositive(new MaterialDialog.SingleButtonCallback()
+                           {
+                               @Override
+                               public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which)
+                               {
+                                   EditText in=(EditText) dialog.getCustomView().findViewById(R.id.history_mile);
+                                   DatePicker date=(DatePicker) dialog.getCustomView().findViewById(R.id.history_date);
 
 
-                }
-            });
+                                   TextView t=new TextView(llpast.getContext());
+
+                                   try
+                                   {
+                                       Date to_add=new Date(date.getCalendarView().getDate());
+                                       maintenance.get(getAdapterPosition()).dates_done.add(to_add);
+
+
+                                       t.setText("Done at "+ in.getText().toString()+ " on "+ (date.getMonth()+1)+"/" + date.getDayOfMonth()+"/"+date.getYear());
+
+                                       t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                                       llpast.addView(t);
+                                   }
+                                   catch (Exception e)
+                                   {
+                                       t.setText("Done at " + in.getText().toString() + " on " + date.toString());
+                                       t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                                       llpast.addView(t);
+                                   }
+
+                               }
+                           })
+                            .show();
+                    }
+                });
+
 
 
             close.setOnClickListener(new View.OnClickListener() {
