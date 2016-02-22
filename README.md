@@ -7,7 +7,7 @@ Input your factory recommended maintenance intervals, and your current odometer 
 when your vehicle needs maintenance. Every week, AutoLog will prompt you to enter new odometer readings in order to keep
 track of your new mileage.
 
-App is a work in progress, and does not currently function as needed
+Only thing currently missing is adding a maintenance item as done
 
 
 
