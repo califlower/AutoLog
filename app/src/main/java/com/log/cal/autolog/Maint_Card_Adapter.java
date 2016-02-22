@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -106,6 +108,7 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
         final TextView maint_cost;
         final ImageButton close;
         final LinearLayout llpast;
+        final ImageButton add;
 
 
         public Maint_Card_ViewHolder(View v)
@@ -117,7 +120,21 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
             maint_cost=(TextView) v.findViewById(R.id.maint_interval_cost);
             close=(ImageButton)v.findViewById(R.id.close);
             llpast=(LinearLayout)v.findViewById(R.id.llpast);
+            add=(ImageButton) v.findViewById(R.id.add_date);
 
+
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new MaterialDialog.Builder(v.getContext())
+                            .title("Update Mileage")
+                            .inputType(InputType.TYPE_DATETIME_VARIATION_DATE)
+                            .inputRange(1,-1)
+                            .negativeText("Cancel").show();
+
+
+                }
+            });
 
 
             close.setOnClickListener(new View.OnClickListener() {
