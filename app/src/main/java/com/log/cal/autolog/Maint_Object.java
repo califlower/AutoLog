@@ -1,6 +1,5 @@
 package com.log.cal.autolog;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -11,21 +10,20 @@ class Maint_Object implements Comparable<Maint_Object>
     String name;
     Double cost;
     int interval;
-    List<Date> dates_done;
-    List<Integer>miles_done;
+    List<Maint_History_Obj> history;
 
-    public Maint_Object(String name,Double cost, int interval,List<Date> dates_done, List<Integer> miles_done)
+
+    public Maint_Object(String name,Double cost, int interval,List<Maint_History_Obj> history)
     {
         this.name=name;
         this.cost=cost;
         this.interval=interval;
-        this.dates_done=dates_done;
-        this.miles_done=miles_done;
+        this.history=history;
     }
 
     public int compareTo(Maint_Object m)
     {
-        if ((interval+miles_done.get(0))<(m.interval+m.miles_done.get(0)))
+        if ((interval+history.get(0).miles)<(m.interval+m.history.get(0).miles))
         {
             return -1;
 

@@ -16,7 +16,6 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MaintenanceAddActivity extends AppCompatActivity
@@ -86,13 +85,14 @@ public class MaintenanceAddActivity extends AppCompatActivity
 
                 Gson g=new Gson();
 
-                List<Date> dates_done=new ArrayList<>();
-                List<Integer>miles_done=new ArrayList<>();
+                List<Maint_History_Obj> history= new ArrayList<>();
+
 
                 int temp=Integer.parseInt(String.valueOf(last_done.getText()));
-                miles_done.add(temp);
+                Maint_History_Obj m=new Maint_History_Obj(null,temp);
+                history.add(m);
 
-                Maint_Object obj=new Maint_Object(name.getText().toString().trim(),Double.parseDouble(cost.getText().toString().trim()),Integer.parseInt(interval.getText().toString().trim()),dates_done,miles_done);
+                Maint_Object obj=new Maint_Object(name.getText().toString().trim(),Double.parseDouble(cost.getText().toString().trim()),Integer.parseInt(interval.getText().toString().trim()),history);
 
 
                 Bundle inc=getIntent().getExtras();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +55,9 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
 
         holder.maint_name.setText(b.name);
 
-        if (b.miles_done.size()!=0)
+        if (b.history.size()!=0)
         {
-            int t=b.interval+b.miles_done.get(0)-odometer;
+            int t=b.interval+b.history.get(0).miles-odometer;
 
             if(t<0)
             {
@@ -73,7 +75,8 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
 
         holder.maint_cost.setText("$"+b.cost.toString()+" Estimated Cost");
         holder.llpast.removeAllViewsInLayout();
-        for (int i=0; i<b.miles_done.size();i++)
+
+        for (int i=0; i<b.history.size();i++)
         {
             TextView t=new TextView(holder.llpast.getContext());
 
@@ -81,16 +84,16 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
             {
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
-                Date d=b.dates_done.get(i);
+                Date d=b.history.get(i).date;
                 String s=sdf.format(d);
-                t.setText("Done at "+ b.miles_done.get(i)+ " on " + s);
+                t.setText("Done at "+ b.history.get(i).miles+ " on " + s);
 
                 t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
                 holder.llpast.addView(t);
             }
             catch (Exception e)
             {
-                t.setText("Done at "+ b.miles_done.get(i).toString()+" on -- -- --");
+                t.setText("Done at "+ b.history.get(i).miles+" on -- -- --");
                 t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
                 holder.llpast.addView(t);
             }
@@ -128,67 +131,78 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
 
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
+                public void onClick(final View v)
                 {
                    new MaterialDialog.Builder(v.getContext())
                             .title("Add a Mileage and Date")
                             .customView(R.layout.date_time_view,true)
-                            .inputRange(1,-1)
                             .positiveText("Add History")
                             .negativeText("Cancel")
+                           .alwaysCallInputCallback()
                            .onPositive(new MaterialDialog.SingleButtonCallback()
                            {
                                @Override
                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which)
                                {
+
+
                                    EditText in=(EditText) dialog.getCustomView().findViewById(R.id.history_mile);
                                    DatePicker date=(DatePicker) dialog.getCustomView().findViewById(R.id.history_date);
 
-
-                                   TextView t=new TextView(llpast.getContext());
-                                   Date to_add=new Date(date.getCalendarView().getDate());
-                                   maintenance.get(getAdapterPosition()).dates_done.add(to_add);
-                                   maintenance.get(getAdapterPosition()).miles_done.add(Integer.parseInt(in.getText().toString()));
-
-                                   //t.setText("Done at "+ in.getText().toString()+ " on "+ (date.getMonth()+1)+"/" + date.getDayOfMonth()+"/"+date.getYear());
-
-                                   //t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-                                   //llpast.addView(t);
-
-
-                                   Context context=dialog.getContext();
-                                   SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
-                                   String vehicle_gson_array=sharedPref.getString(context.getString(R.string.vehicle_key),"empty_key");
-
-                                   /******
-                                    * Checks if the saved array is empty or not
-                                    */
-
-                                   if (vehicle_gson_array.compareTo("empty_key")!=0)
+                                   if (in.getText().toString().trim().length()==0)
                                    {
-                                       Gson gson=new Gson();
-                                       Type collectionType = new TypeToken<ArrayList<Vehicle_Object>>(){}.getType();
-                                       ArrayList<Vehicle_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
 
-                                       /*******
-                                        * Removes item from recyclerview and sharedpreferences
+                                       Snackbar.make(v, "Missing Input Detected", Snackbar.LENGTH_LONG).show();
+                                   }
+                                   else if (Integer.parseInt(in.getText().toString())>odometer)
+                                   {
+                                       Snackbar.make(v, "Mileage Entered Greater Than Odometer", Snackbar.LENGTH_LONG).show();
+
+                                   }
+                                   else
+                                   {
+                                       Date to_add = new Date(date.getCalendarView().getDate());
+                                       int to_add_int = Integer.parseInt(in.getText().toString());
+                                       Maint_History_Obj x = new Maint_History_Obj(to_add, to_add_int);
+
+                                       maintenance.get(getAdapterPosition()).history.add(x);
+
+                                       Collections.sort(maintenance.get(getAdapterPosition()).history, Collections.<Maint_History_Obj>reverseOrder());
+
+                                       Context context = dialog.getContext();
+                                       SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
+                                       String vehicle_gson_array = sharedPref.getString(context.getString(R.string.vehicle_key), "empty_key");
+
+                                       /******
+                                        * Checks if the saved array is empty or not
                                         */
-                                       temp_list.get(bike_location).maint_list=maintenance;
-                                       Maint_Card_Adapter.this.notifyDataSetChanged();
+
+                                       if (vehicle_gson_array.compareTo("empty_key") != 0) {
+                                           Gson gson = new Gson();
+                                           Type collectionType = new TypeToken<ArrayList<Vehicle_Object>>() {
+                                           }.getType();
+                                           ArrayList<Vehicle_Object> temp_list = gson.fromJson(vehicle_gson_array, collectionType);
+
+                                           /*******
+                                            * Removes item from recyclerview and sharedpreferences
+                                            */
+                                           temp_list.get(bike_location).maint_list = maintenance;
+                                           Maint_Card_Adapter.this.notifyDataSetChanged();
 
 
-                                       SharedPreferences.Editor editor = sharedPref.edit();
-                                       String insert_preference=gson.toJson(temp_list);
+                                           SharedPreferences.Editor editor = sharedPref.edit();
+                                           String insert_preference = gson.toJson(temp_list);
 
 
-                                       editor.putString(context.getString(R.string.vehicle_key),insert_preference);
+                                           editor.putString(context.getString(R.string.vehicle_key), insert_preference);
 
-                                       editor.apply();
+                                           editor.apply();
 
 
-                                       /****
-                                        * applies changes
-                                        */
+                                           /****
+                                            * applies changes
+                                            */
+                                       }
                                    }
 
 
