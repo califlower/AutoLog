@@ -72,18 +72,18 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
         //last_done+interval - current miles
 
         holder.maint_cost.setText("$"+b.cost.toString()+" Estimated Cost");
-
+        holder.llpast.removeAllViewsInLayout();
         for (int i=0; i<b.miles_done.size();i++)
         {
             TextView t=new TextView(holder.llpast.getContext());
 
             try
             {
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy)");
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
                 Date d=b.dates_done.get(i);
                 String s=sdf.format(d);
-                t.setText("Done at"+ b.miles_done.get(i).toString()+ " on " + b);
+                t.setText("Done at "+ b.miles_done.get(i)+ " on " + s);
 
                 t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
                 holder.llpast.addView(t);
@@ -146,24 +146,51 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
 
 
                                    TextView t=new TextView(llpast.getContext());
+                                   Date to_add=new Date(date.getCalendarView().getDate());
+                                   maintenance.get(getAdapterPosition()).dates_done.add(to_add);
+                                   maintenance.get(getAdapterPosition()).miles_done.add(Integer.parseInt(in.getText().toString()));
 
-                                   try
+                                   //t.setText("Done at "+ in.getText().toString()+ " on "+ (date.getMonth()+1)+"/" + date.getDayOfMonth()+"/"+date.getYear());
+
+                                   //t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                                   //llpast.addView(t);
+
+
+                                   Context context=dialog.getContext();
+                                   SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
+                                   String vehicle_gson_array=sharedPref.getString(context.getString(R.string.vehicle_key),"empty_key");
+
+                                   /******
+                                    * Checks if the saved array is empty or not
+                                    */
+
+                                   if (vehicle_gson_array.compareTo("empty_key")!=0)
                                    {
-                                       Date to_add=new Date(date.getCalendarView().getDate());
-                                       maintenance.get(getAdapterPosition()).dates_done.add(to_add);
+                                       Gson gson=new Gson();
+                                       Type collectionType = new TypeToken<ArrayList<Vehicle_Object>>(){}.getType();
+                                       ArrayList<Vehicle_Object> temp_list=gson.fromJson(vehicle_gson_array,collectionType);
+
+                                       /*******
+                                        * Removes item from recyclerview and sharedpreferences
+                                        */
+                                       temp_list.get(bike_location).maint_list=maintenance;
+                                       Maint_Card_Adapter.this.notifyDataSetChanged();
 
 
-                                       t.setText("Done at "+ in.getText().toString()+ " on "+ (date.getMonth()+1)+"/" + date.getDayOfMonth()+"/"+date.getYear());
+                                       SharedPreferences.Editor editor = sharedPref.edit();
+                                       String insert_preference=gson.toJson(temp_list);
 
-                                       t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-                                       llpast.addView(t);
+
+                                       editor.putString(context.getString(R.string.vehicle_key),insert_preference);
+
+                                       editor.apply();
+
+
+                                       /****
+                                        * applies changes
+                                        */
                                    }
-                                   catch (Exception e)
-                                   {
-                                       t.setText("Done at " + in.getText().toString() + " on " + date.toString());
-                                       t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-                                       llpast.addView(t);
-                                   }
+
 
                                }
                            })
