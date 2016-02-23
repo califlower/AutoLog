@@ -32,12 +32,14 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
     private final List<Maint_Object> maintenance;
     private final int odometer;
     private final int bike_location;
+    private final boolean maint_type;
 
-    public Maint_Card_Adapter(List<Maint_Object> maintenance, int odometer, int bike_location)
+    public Maint_Card_Adapter(List<Maint_Object> maintenance, int odometer, int bike_location,boolean maint_type)
     {
         this.maintenance=maintenance;
         this.odometer=odometer;
         this.bike_location=bike_location;
+        this.maint_type=maint_type;
     }
 
     @Override
@@ -52,6 +54,7 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
     {
 
         Maint_Object b=maintenance.get(position);
+
 
         holder.maint_name.setText(b.name);
 
@@ -79,6 +82,10 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
         for (int i=0; i<b.history.size();i++)
         {
             TextView t=new TextView(holder.llpast.getContext());
+            LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            p.setMargins(10,10,10,10);
+            t.setLayoutParams(p);
+
 
             try
             {
@@ -89,6 +96,7 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
                 t.setText("Done at "+ b.history.get(i).miles+ " on " + s);
 
                 t.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+
                 holder.llpast.addView(t);
             }
             catch (Exception e)

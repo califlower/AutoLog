@@ -15,9 +15,9 @@
         android:layout_height="match_parent">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="180dp"
             android:id="@+id/vehicle_image"
-            android:background="#cddc39"
+
             android:contentDescription="@string/vehicle_image_description"
             android:layout_alignParentStart="true" />
 
@@ -27,10 +27,11 @@
             android:layout_alignParentStart="true"
             android:layout_below="@id/vehicle_image"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
 
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-light"
 
+            android:textColor="#000000"
             android:id="@+id/card_year"
             android:text="@string/year"
             android:textSize="@dimen/text_size"
@@ -42,11 +43,12 @@
             android:layout_below="@id/vehicle_image"
             android:layout_toEndOf="@id/card_year"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
 
             android:id="@+id/card_make"
 
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#000000"
             android:text="@string/manufacturer"
 
             android:textSize="@dimen/text_size" />
@@ -57,12 +59,13 @@
             android:layout_below="@id/vehicle_image"
             android:layout_toEndOf="@id/card_make"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
 
             android:id="@+id/card_model"
             android:text="@string/model"
 
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#000000"
             android:textSize="@dimen/text_size"
             />
 
@@ -72,7 +75,7 @@
             android:layout_below="@id/card_year"
             android:layout_alignStart="@id/card_year"
 
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif-medium"
             android:id="@+id/card_mileage"
 
             android:text="@string/mileage"
@@ -87,7 +90,7 @@
             android:layout_below="@id/card_model"
             android:layout_marginStart="6dp"
 
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif-medium"
             android:id="@+id/maint_type_text"
 
             android:text="@string/miles"
@@ -100,11 +103,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
 
-            android:fontFamily="sans-serif-thin"
+            android:textColor="#616161"
+
+            android:fontFamily="sans-serif-medium"
             android:id="@+id/next_maint_header"
 
             android:text="@string/next_maintenance_item"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,7 +118,7 @@
             android:layout_alignStart="@+id/next_maint_header"
 
             android:text="@string/maint_item"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:fontFamily="sans-serif-light"
             android:id="@+id/next_maint" />
 
@@ -126,8 +131,9 @@
 
 
             android:text="@string/estimated_cost"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif-thin"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#616161"
 
             android:id="@+id/maint_cost_header" />
 
@@ -140,7 +146,7 @@
 
 
             android:text="@string/cost_item"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:id="@+id/est_cost_item"
             android:fontFamily="sans-serif-light"
             />
@@ -164,6 +170,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
 
+            android:background="?attr/selectableItemBackgroundBorderless"
+
             android:text="@string/update_mileage"
             android:textSize="16sp"
             android:fontFamily="sans-serif-medium"
@@ -178,6 +186,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+
+            android:background="?attr/selectableItemBackgroundBorderless"
 
             android:fontFamily="sans-serif-medium"
             android:id="@+id/remove_bike"
@@ -197,10 +207,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
 
-
+            android:tint="#9e9e9e"
             android:id="@+id/maintenance_list_button"
-            android:background="#00ffffff"
-            android:src="@drawable/file_document_box"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:focusable="true"
+            android:src="@drawable/ic_assignment_black_24dp"
             />
 
         <ImageButton
@@ -209,13 +220,16 @@
             android:layout_toStartOf="@id/maintenance_list_button"
             android:layout_below="@id/divider"
 
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
 
+            android:tint="#9e9e9e"
 
+            android:focusable="true"
             android:id="@+id/bike_settings"
-            android:background="#00ffffff"
-            android:src="@drawable/wrench"
+
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_build_black_24dp"
             />
 
 

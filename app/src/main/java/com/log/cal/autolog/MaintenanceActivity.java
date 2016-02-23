@@ -152,13 +152,13 @@ public class MaintenanceActivity extends AppCompatActivity
         editor.putString(getString(R.string.vehicle_key),insert_preference);
         editor.apply();
 
-
+        boolean is_miles= list_extract.maint_type.compareToIgnoreCase("Miles")==0? true:false;
 
         maint_listview.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         maint_listview.setLayoutManager(manager);
-        Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location);
+        Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location,is_miles);
         maint_listview.setAdapter(m);
     }
 
@@ -200,7 +200,7 @@ public class MaintenanceActivity extends AppCompatActivity
             maint_list.add(temp_maint);
             list_extract.maint_list=maint_list;
 
-
+            boolean is_miles= list_extract.maint_type.compareToIgnoreCase("Miles")==0? true:false;
 
             bike_array_list.set((int) inc.get("location"),list_extract);
 
@@ -215,7 +215,7 @@ public class MaintenanceActivity extends AppCompatActivity
 
             manager.setOrientation(LinearLayoutManager.VERTICAL);
             maint_listview.setLayoutManager(manager);
-            Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location);
+            Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location,is_miles);
             maint_listview.setAdapter(m);
 
 
