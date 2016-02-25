@@ -15,12 +15,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MaintenanceAddActivity extends AppCompatActivity
+public class Maintenance_Edit_Activity extends AppCompatActivity
 {
 
     @Override
@@ -33,9 +35,38 @@ public class MaintenanceAddActivity extends AppCompatActivity
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
+        Intent i=this.getIntent();
+        Gson g=new Gson();
+        Type t= new TypeToken<Maint_Object>(){}.getType();
+
+        Maint_Object m= g.fromJson(i.getExtras().get("obj").toString(),t);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        EditText name= (EditText)findViewById(R.id.maint_name_input);
+        EditText interval= (EditText)findViewById(R.id.maint_interval_input);
+        EditText cost= (EditText)findViewById(R.id.maint_cost_input);
+        EditText last_done=(EditText)findViewById(R.id.maint_last_done_input);
+        DatePicker date=(DatePicker)findViewById(R.id.add_maint_date);
+
+        name.setText(m.name);
+
+        String a= String.valueOf(m.interval);
+        interval.setText(a);
+        cost.setText(m.cost.toString());
+
+        if (m.history.size()!=0)
+        {
+            String b= String.valueOf(m.history.get(0).miles);
+            last_done.setText(b);
+        }
+
+
+
+
+
 
 
 
@@ -84,33 +115,32 @@ public class MaintenanceAddActivity extends AppCompatActivity
             }
             else
             {
-                Intent back_to_main=new Intent(MaintenanceAddActivity.this,MaintenanceActivity.class);
-
+                
+                Intent back_to_main=new Intent(Maintenance_Edit_Activity.this,MaintenanceActivity.class);
                 Gson g=new Gson();
-
                 List<Maint_History_Obj> history= new ArrayList<>();
+                Bundle inc=getIntent().getExtras();
+                final int location=(int) inc.get("location");
 
 
                 int temp=Integer.parseInt(String.valueOf(last_done.getText()));
-
                 Date tempD=new Date(date.getCalendarView().getDate());
 
                 Maint_History_Obj m=new Maint_History_Obj(tempD,temp);
 
-                history.add(m);
+                history.set(location,m);
 
                 Maint_Object obj=new Maint_Object(name.getText().toString().trim(),Double.parseDouble(cost.getText().toString().trim()),Integer.parseInt(interval.getText().toString().trim()),history);
 
 
-                Bundle inc=getIntent().getExtras();
-                final int location=(int) inc.get("location");
+
 
                 back_to_main.putExtra("obj",g.toJson(obj));
                 back_to_main.putExtra("id", "add_activity");
                 back_to_main.putExtra("location",location);
 
-                ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceAddActivity.this);
-                ActivityCompat.startActivity(MaintenanceAddActivity.this,back_to_main, options.toBundle());
+                ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(Maintenance_Edit_Activity.this);
+                ActivityCompat.startActivity(Maintenance_Edit_Activity.this,back_to_main, options.toBundle());
 
             }
         }
@@ -126,11 +156,11 @@ public class MaintenanceAddActivity extends AppCompatActivity
         slide.setSlideEdge(3);
         getWindow().setExitTransition(slide);
 
-        Intent i= new Intent(MaintenanceAddActivity.this, MaintenanceActivity.class);
+        Intent i= new Intent(Maintenance_Edit_Activity.this, MaintenanceActivity.class);
         Bundle inc=getIntent().getExtras();
         i.putExtra("location",(int) inc.get("location"));
-        ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceAddActivity.this,toolbar,"add_toolbar");
-        ActivityCompat.startActivity(MaintenanceAddActivity.this,i, options.toBundle());
+        ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(Maintenance_Edit_Activity.this,toolbar,"add_toolbar");
+        ActivityCompat.startActivity(Maintenance_Edit_Activity.this,i, options.toBundle());
         return true;
     }
 

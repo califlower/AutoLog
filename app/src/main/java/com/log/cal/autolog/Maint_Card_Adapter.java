@@ -1,11 +1,18 @@
 package com.log.cal.autolog;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -123,6 +131,7 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
         final ImageButton close;
         final LinearLayout llpast;
         final ImageButton add;
+        final ImageButton edit;
 
 
         public Maint_Card_ViewHolder(View v)
@@ -135,6 +144,8 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
             close=(ImageButton)v.findViewById(R.id.close);
             llpast=(LinearLayout)v.findViewById(R.id.llpast);
             add=(ImageButton) v.findViewById(R.id.add_date);
+            edit=(ImageButton) v.findViewById(R.id.edit_maint);
+
 
 
             add.setOnClickListener(new View.OnClickListener() {
@@ -267,6 +278,32 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
                          * applies changes
                          */
                     }
+                }
+            });
+
+            edit.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    AppCompatActivity a= (AppCompatActivity) v.getContext();
+
+                    Gson g=new Gson();
+
+                    Toolbar t=(Toolbar) a.findViewById(R.id.maint_toolbar);
+                    RelativeLayout r= (RelativeLayout)a.findViewById(R.id.card_expand_maintenance);
+
+                    Intent maint_settings=new Intent(v.getContext(),Maintenance_Edit_Activity.class);
+
+                    maint_settings.putExtra("location", Maint_Card_Adapter.Maint_Card_ViewHolder.this.getAdapterPosition());
+                    maint_settings.putExtra("obj",g.toJson(maintenance.get(Maint_Card_Adapter.Maint_Card_ViewHolder.this.getAdapterPosition())));
+
+
+                    Pair<View, String> toolbar = Pair.create((View)t, "add_toolbar");
+                    Pair<View, String> lay = Pair.create((View)r, "card_expand_maintenance");
+
+                    ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(),toolbar, lay);
+                    ActivityCompat.startActivity((Activity) v.getContext(),maint_settings, options.toBundle());
                 }
             });
         }

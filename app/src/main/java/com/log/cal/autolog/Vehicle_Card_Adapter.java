@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -166,13 +167,18 @@ public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
                 public void onClick(View v)
                 {
                     AppCompatActivity a= (AppCompatActivity) v.getContext();
+
                     Toolbar t=(Toolbar) a.findViewById(id.toolbar);
+                    RelativeLayout r= (RelativeLayout)a.findViewById(id.card_expand_vehicle);
 
                     Intent bike_settings=new Intent(v.getContext(),Per_Vehicle_Settings.class);
 
                     bike_settings.putExtra("location", Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
 
-                    ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(),t,"add_toolbar");
+                    Pair<View, String> toolbar = Pair.create((View)t, "add_toolbar");
+                    Pair<View, String> lay = Pair.create((View)r, "card_expand_vehicle");
+
+                    ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(),toolbar, lay);
                     ActivityCompat.startActivity((Activity) v.getContext(),bike_settings, options.toBundle());
                 }
             });

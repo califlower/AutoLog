@@ -26,7 +26,9 @@
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_marginEnd="16dp"
+        android:id="@+id/card_expand_maintenance"
+        android:transitionName="card_expand_maintenance">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -101,6 +103,15 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:id="@+id/add_maint_date"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:layout_below="@+id/til_last_done"
+            android:layout_centerHorizontal="true"/>
 
 
     </RelativeLayout>
