@@ -65,13 +65,6 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
 
 
 
-
-
-
-
-
-
-
     }
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -115,7 +108,7 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
             }
             else
             {
-                
+
                 Intent back_to_main=new Intent(Maintenance_Edit_Activity.this,MaintenanceActivity.class);
                 Gson g=new Gson();
                 List<Maint_History_Obj> history= new ArrayList<>();
@@ -131,8 +124,6 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
                 history.set(location,m);
 
                 Maint_Object obj=new Maint_Object(name.getText().toString().trim(),Double.parseDouble(cost.getText().toString().trim()),Integer.parseInt(interval.getText().toString().trim()),history);
-
-
 
 
                 back_to_main.putExtra("obj",g.toJson(obj));

@@ -295,7 +295,8 @@ public class Maint_Card_Adapter extends RecyclerView.Adapter<Maint_Card_Adapter.
 
                     Intent maint_settings=new Intent(v.getContext(),Maintenance_Edit_Activity.class);
 
-                    maint_settings.putExtra("location", Maint_Card_Adapter.Maint_Card_ViewHolder.this.getAdapterPosition());
+                    maint_settings.putExtra("maint_loc", Maint_Card_Adapter.Maint_Card_ViewHolder.this.getAdapterPosition());
+                    maint_settings.putExtra("location", bike_location);
                     maint_settings.putExtra("obj",g.toJson(maintenance.get(Maint_Card_Adapter.Maint_Card_ViewHolder.this.getAdapterPosition())));
 
 
