@@ -56,6 +56,10 @@ public class MaintenanceActivity extends AppCompatActivity
             {
                editList();
             }
+            else if (i.getExtras().get("id").toString().compareToIgnoreCase("edit_activity")==0)
+            {
+                editItemList();
+            }
             else
             {
                 initList();
@@ -204,6 +208,8 @@ public class MaintenanceActivity extends AppCompatActivity
 
             bike_array_list.set((int) inc.get("location"),list_extract);
 
+            Collections.sort(maint_list);
+
             SharedPreferences.Editor editor = sharedPref.edit();
             String insert_preference=gson.toJson(bike_array_list);
             editor.putString(getString(R.string.vehicle_key),insert_preference);
@@ -220,6 +226,63 @@ public class MaintenanceActivity extends AppCompatActivity
 
 
 
+
+
+    }
+    private void editItemList()
+    {
+        List<Vehicle_Object> bike_array_list;
+        /********************
+         * handles the saving part
+         * retrieves vehicles
+         */
+        Gson gson=new Gson();
+        Context context=this;
+        Bundle inc=getIntent().getExtras();
+
+        final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.vehicle_array_preferences), Context.MODE_PRIVATE);
+        final int location=(int) inc.get("location");
+
+        RecyclerView maint_listview = (RecyclerView) findViewById(R.id.maint_list);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        Type collectionType = new TypeToken<ArrayList<Vehicle_Object>>(){}.getType();
+        String vehicle_gson_array=sharedPref.getString(getString(R.string.vehicle_key),"empty_key");
+
+        /******
+         * Checks if the saved array is empty or not
+         */
+
+        bike_array_list= gson.<ArrayList<Vehicle_Object>>fromJson(vehicle_gson_array,collectionType);
+
+
+        Vehicle_Object list_extract=bike_array_list.get(location);
+
+        List<Maint_Object> maint_list = list_extract.maint_list;
+        Collections.sort(maint_list);
+
+        Type temp = new TypeToken<Maint_Object>(){}.getType();
+
+        Maint_Object temp_maint=gson.fromJson(inc.get("obj").toString(),temp);
+
+        maint_list.set((int)inc.get("maint_loc"),temp_maint);
+        list_extract.maint_list=maint_list;
+
+
+        boolean is_miles= list_extract.maint_type.compareToIgnoreCase("Miles")==0? true:false;
+
+        bike_array_list.set((int) inc.get("location"),list_extract);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        String insert_preference=gson.toJson(bike_array_list);
+        editor.putString(getString(R.string.vehicle_key),insert_preference);
+        editor.apply();
+
+        maint_listview.setHasFixedSize(true);
+
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        maint_listview.setLayoutManager(manager);
+        Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location,is_miles);
+        maint_listview.setAdapter(m);
 
 
     }

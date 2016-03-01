@@ -1,35 +1,40 @@
 package com.log.cal.autolog;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class Maintenance_Edit_Activity extends AppCompatActivity
 {
 
+    Maint_Object m;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maintenance_add);
+        setContentView(R.layout.activity_maintenance_edit);
         setupWindowAnimations();
         Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
         toolbar.setTitle("");
@@ -39,7 +44,7 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
         Gson g=new Gson();
         Type t= new TypeToken<Maint_Object>(){}.getType();
 
-        Maint_Object m= g.fromJson(i.getExtras().get("obj").toString(),t);
+        m= g.fromJson(i.getExtras().get("obj").toString(),t);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -48,8 +53,7 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
         EditText name= (EditText)findViewById(R.id.maint_name_input);
         EditText interval= (EditText)findViewById(R.id.maint_interval_input);
         EditText cost= (EditText)findViewById(R.id.maint_cost_input);
-        EditText last_done=(EditText)findViewById(R.id.maint_last_done_input);
-        DatePicker date=(DatePicker)findViewById(R.id.add_maint_date);
+        final LinearLayout llpast=(LinearLayout)findViewById(R.id.llpast);
 
         name.setText(m.name);
 
@@ -57,11 +61,43 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
         interval.setText(a);
         cost.setText(m.cost.toString());
 
-        if (m.history.size()!=0)
+
+        for (int r=0; r<m.history.size();r++)
         {
-            String b= String.valueOf(m.history.get(0).miles);
-            last_done.setText(b);
+            final int current=r;
+            TextView text=new TextView(this);
+            LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            p.setMargins(10,50,10,10);
+
+            text.setLayoutParams(p);
+            text.setTextSize(15);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+            Date d=m.history.get(r).date;
+            String s=sdf.format(d);
+            text.setText("Done at "+ m.history.get(r).miles+ " on " + s+ "    Remove");
+
+            text.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+
+            text.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    m.history.remove(current);
+                    llpast.removeViewAt(current);
+                }
+            });
+
+            llpast.addView(text);
+
+
         }
+
+
+
+
 
 
 
@@ -98,10 +134,9 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
             EditText name= (EditText)findViewById(R.id.maint_name_input);
             EditText interval= (EditText)findViewById(R.id.maint_interval_input);
             EditText cost= (EditText)findViewById(R.id.maint_cost_input);
-            EditText last_done=(EditText)findViewById(R.id.maint_last_done_input);
-            DatePicker date=(DatePicker)findViewById(R.id.add_maint_date);
 
-            if (name.getText().toString().trim().length()==0 || cost.getText().toString().trim().length()==0||interval.getText().toString().trim().length()==0 || last_done.getText().toString().trim().length()==0)
+
+            if (name.getText().toString().trim().length()==0 || cost.getText().toString().trim().length()==0||interval.getText().toString().trim().length()==0)
             {
                 Snackbar.make(findViewById(R.id.root_layout), "MISSING AN INPUT", Snackbar.LENGTH_LONG).show();
                 return true;
@@ -111,24 +146,18 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
 
                 Intent back_to_main=new Intent(Maintenance_Edit_Activity.this,MaintenanceActivity.class);
                 Gson g=new Gson();
-                List<Maint_History_Obj> history= new ArrayList<>();
                 Bundle inc=getIntent().getExtras();
                 final int location=(int) inc.get("location");
+                Intent i=this.getIntent();
+                Type t= new TypeToken<Maint_Object>(){}.getType();
 
 
-                int temp=Integer.parseInt(String.valueOf(last_done.getText()));
-                Date tempD=new Date(date.getCalendarView().getDate());
-
-                Maint_History_Obj m=new Maint_History_Obj(tempD,temp);
-
-                history.set(location,m);
-
-                Maint_Object obj=new Maint_Object(name.getText().toString().trim(),Double.parseDouble(cost.getText().toString().trim()),Integer.parseInt(interval.getText().toString().trim()),history);
-
+                Maint_Object obj=new Maint_Object(name.getText().toString().trim(),Double.parseDouble(cost.getText().toString().trim()),Integer.parseInt(interval.getText().toString().trim()),m.history);
 
                 back_to_main.putExtra("obj",g.toJson(obj));
-                back_to_main.putExtra("id", "add_activity");
+                back_to_main.putExtra("id", "edit_activity");
                 back_to_main.putExtra("location",location);
+                back_to_main.putExtra("maint_loc", (int) inc.get("maint_loc"));
 
                 ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(Maintenance_Edit_Activity.this);
                 ActivityCompat.startActivity(Maintenance_Edit_Activity.this,back_to_main, options.toBundle());

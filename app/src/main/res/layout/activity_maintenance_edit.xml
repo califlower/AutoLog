@@ -86,40 +86,12 @@
         </android.support.design.widget.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/til_last_done"
-            android:layout_below="@id/til_cost"
-            android:layout_marginTop="16dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:hint="At what mileage was this last done?"
-                android:id="@+id/maint_last_done_input"
-                />
-
-
-        </android.support.design.widget.TextInputLayout>
-
-        <DatePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/add_maint_date"
-            android:datePickerMode="spinner"
-            android:calendarViewShown="false"
-            android:layout_below="@+id/til_last_done"
-            android:layout_centerHorizontal="true"/>
-
         <LinearLayout
             android:orientation="vertical"
+            android:id="@+id/llpast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/add_maint_date">
+            android:layout_below="@id/til_cost">
         </LinearLayout>
 
 
