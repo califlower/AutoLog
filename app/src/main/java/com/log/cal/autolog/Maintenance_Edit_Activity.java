@@ -16,7 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -65,22 +67,49 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
         for (int r=0; r<m.history.size();r++)
         {
             final int current=r;
+            RelativeLayout view_Add=new RelativeLayout(this);
             TextView text=new TextView(this);
-            LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            p.setMargins(10,50,10,10);
+            ImageButton del=new ImageButton(this);
 
-            text.setLayoutParams(p);
+            RelativeLayout.LayoutParams add_params=new RelativeLayout.LayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            RelativeLayout.LayoutParams text_params=new RelativeLayout.LayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            RelativeLayout.LayoutParams del_params=new RelativeLayout.LayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view_Add.setLayoutParams(add_params);
+
+            text_params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            text_params.topMargin=50;
+            text_params.setMarginStart(30);
+            text.setLayoutParams(text_params);
             text.setTextSize(15);
+
+            del.setBackgroundResource(R.drawable.ic_close_black_24dp);
+            del_params.topMargin=50;
+            del_params.setMarginEnd(30);
+            del_params.addRule(RelativeLayout.RIGHT_OF,text.getId());
+            del_params.addRule(RelativeLayout.ALIGN_PARENT_END,text.getId());
+            del.setLayoutParams(del_params);
+
+
+            view_Add.addView(text);
+            view_Add.addView(del);
+
+
+
+
+
+
+
 
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
             Date d=m.history.get(r).date;
             String s=sdf.format(d);
-            text.setText("Done at "+ m.history.get(r).miles+ " on " + s+ "    Remove");
+            text.setText("Done at "+ m.history.get(r).miles+ " on " + s);
 
             text.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
 
-            text.setOnClickListener(new View.OnClickListener()
+            del.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
@@ -90,7 +119,7 @@ public class Maintenance_Edit_Activity extends AppCompatActivity
                 }
             });
 
-            llpast.addView(text);
+            llpast.addView(view_Add);
 
 
         }
