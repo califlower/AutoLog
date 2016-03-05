@@ -93,6 +93,8 @@ public class Per_Vehicle_Settings extends AppCompatActivity
         year_input.setText(Integer.toString(b.bike_year));
         mile_input.setText(Integer.toString(b.bike_mileage));
 
+        ImageView i=(ImageView)findViewById(R.id.bike_image_chooser);
+        Glide.with(this).load(b.path).centerCrop().into(i);
 
         /***
          * Declares the radio buttons

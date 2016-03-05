@@ -162,26 +162,35 @@ public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
                 }
             });
 
-            this.settings.setOnClickListener(new OnClickListener() {
+
+
+
+            OnClickListener setting_click=new OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
-                    AppCompatActivity a= (AppCompatActivity) v.getContext();
+                public void onClick(View v) {
+                    AppCompatActivity a = (AppCompatActivity) v.getContext();
 
-                    Toolbar t=(Toolbar) a.findViewById(id.toolbar);
-                    RelativeLayout r= (RelativeLayout)a.findViewById(id.card_expand_vehicle);
+                    Toolbar t = (Toolbar) a.findViewById(id.toolbar);
+                    RelativeLayout r = (RelativeLayout) a.findViewById(id.card_expand_vehicle);
 
-                    Intent bike_settings=new Intent(v.getContext(),Per_Vehicle_Settings.class);
+                    Intent bike_settings = new Intent(v.getContext(), Per_Vehicle_Settings.class);
 
                     bike_settings.putExtra("location", Vehicle_Card_Adapter.Bike_Card_ViewHolder.this.getAdapterPosition());
 
-                    Pair<View, String> toolbar = Pair.create((View)t, "add_toolbar");
-                    Pair<View, String> lay = Pair.create((View)r, "card_expand_vehicle");
+                    Pair<View, String> toolbar = Pair.create((View) t, "add_toolbar");
+                    Pair<View, String> lay = Pair.create((View) r, "card_expand_vehicle");
 
-                    ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(),toolbar, lay);
-                    ActivityCompat.startActivity((Activity) v.getContext(),bike_settings, options.toBundle());
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(), toolbar, lay);
+                    ActivityCompat.startActivity((Activity) v.getContext(), bike_settings, options.toBundle());
                 }
-            });
+            };
+
+            
+            this.settings.setOnClickListener(setting_click);
+            this.bike_image.setOnClickListener(setting_click);
+
+
+
             this.remove_bike.setOnClickListener(new OnClickListener()
             {
                 @Override

@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -164,6 +166,25 @@ public class MaintenanceActivity extends AppCompatActivity
         maint_listview.setLayoutManager(manager);
         Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location,is_miles);
         maint_listview.setAdapter(m);
+
+
+        final FloatingActionButton maint_fab=(FloatingActionButton)findViewById(R.id.maint_fab);
+        maint_listview.addOnScrollListener(new Add_Fab_Behavior()
+        {
+            @Override
+            public void show()
+            {
+                maint_fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+            }
+
+            @Override
+            public void hide()
+            {
+                maint_fab.animate().translationY(maint_fab.getHeight() + 48).setInterpolator(new AccelerateInterpolator(2)).start();
+            }
+        });
+
+
     }
 
     private void editList()
@@ -226,6 +247,24 @@ public class MaintenanceActivity extends AppCompatActivity
 
 
 
+            final FloatingActionButton maint_fab=(FloatingActionButton)findViewById(R.id.maint_fab);
+            maint_listview.addOnScrollListener(new Add_Fab_Behavior()
+            {
+                @Override
+                public void show()
+                {
+                    maint_fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+                }
+
+            @Override
+            public void hide()
+            {
+                maint_fab.animate().translationY(maint_fab.getHeight() + 48).setInterpolator(new AccelerateInterpolator(2)).start();
+            }
+            });
+
+
+
 
 
     }
@@ -283,6 +322,23 @@ public class MaintenanceActivity extends AppCompatActivity
         maint_listview.setLayoutManager(manager);
         Maint_Card_Adapter m = new Maint_Card_Adapter(maint_list,list_extract.bike_mileage,location,is_miles);
         maint_listview.setAdapter(m);
+
+
+        final FloatingActionButton maint_fab=(FloatingActionButton)findViewById(R.id.maint_fab);
+        maint_listview.addOnScrollListener(new Add_Fab_Behavior()
+        {
+            @Override
+            public void show()
+            {
+                maint_fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+            }
+
+            @Override
+            public void hide()
+            {
+                maint_fab.animate().translationY(maint_fab.getHeight() + 48).setInterpolator(new AccelerateInterpolator(2)).start();
+            }
+        });
 
 
     }
