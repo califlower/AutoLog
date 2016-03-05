@@ -185,7 +185,7 @@ public class Vehicle_Card_Adapter extends Adapter<Bike_Card_ViewHolder>
                 }
             };
 
-            
+
             this.settings.setOnClickListener(setting_click);
             this.bike_image.setOnClickListener(setting_click);
 

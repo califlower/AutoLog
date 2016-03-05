@@ -95,6 +95,8 @@ public class Per_Vehicle_Settings extends AppCompatActivity
 
         ImageView i=(ImageView)findViewById(R.id.bike_image_chooser);
         Glide.with(this).load(b.path).centerCrop().into(i);
+        PATH=new ArrayList<>();
+        PATH.add(b.path);
 
         /***
          * Declares the radio buttons

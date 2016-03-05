@@ -3,6 +3,7 @@ package com.log.cal.autolog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,11 @@ public class MaintenanceAddActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.maint_toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        TextInputLayout last_done=(TextInputLayout) findViewById(R.id.til_last_done);
+        Intent i=getIntent();
+
+        if (!((boolean)i.getExtras().get("isMiles")))
+            last_done.setHint("At what hour was this last done?");
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MaintenanceActivity extends AppCompatActivity
 {
-
+    Boolean isMiles;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -83,6 +83,7 @@ public class MaintenanceActivity extends AppCompatActivity
                 Intent i= new Intent(MaintenanceActivity.this, MaintenanceAddActivity.class);
                 Bundle inc=getIntent().getExtras();
                 i.putExtra("location",(int) inc.get("location"));
+                i.putExtra("isMiles",isMiles);
                 ActivityOptionsCompat options=ActivityOptionsCompat.makeSceneTransitionAnimation(MaintenanceActivity.this, toolbar,"add_toolbar");
                 ActivityCompat.startActivity(MaintenanceActivity.this,i, options.toBundle());
             }
@@ -159,6 +160,7 @@ public class MaintenanceActivity extends AppCompatActivity
         editor.apply();
 
         boolean is_miles= list_extract.maint_type.compareToIgnoreCase("Miles")==0? true:false;
+        isMiles=is_miles;
 
         maint_listview.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -226,7 +228,7 @@ public class MaintenanceActivity extends AppCompatActivity
             list_extract.maint_list=maint_list;
 
             boolean is_miles= list_extract.maint_type.compareToIgnoreCase("Miles")==0? true:false;
-
+            isMiles=is_miles;
             bike_array_list.set((int) inc.get("location"),list_extract);
 
             Collections.sort(maint_list);
@@ -308,6 +310,7 @@ public class MaintenanceActivity extends AppCompatActivity
 
 
         boolean is_miles= list_extract.maint_type.compareToIgnoreCase("Miles")==0? true:false;
+        isMiles=is_miles;
 
         bike_array_list.set((int) inc.get("location"),list_extract);
 
@@ -339,7 +342,6 @@ public class MaintenanceActivity extends AppCompatActivity
                 maint_fab.animate().translationY(maint_fab.getHeight() + 48).setInterpolator(new AccelerateInterpolator(2)).start();
             }
         });
-
 
     }
 
